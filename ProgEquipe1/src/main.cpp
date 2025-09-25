@@ -20,6 +20,10 @@ bool rouge = false;
 
 
 void priseDecisionRobot();
+bool verifieCapteurs();
+bool verifieMursExt();
+void tourner();
+void avancer();
 
 void setup() {
   BoardInit();
@@ -110,7 +114,18 @@ void tourner(){
 
 //appel fct moteur avancer
 //change var rangée et colonne dépendant orientation
-//si chemin retour doit soustraire rangée et colonne 
 void avancer(){
-
+  //appeller fct moteur avancer
+  if(directionRobot==0){
+    numColonne = numColonne-1;
+  }
+  if(directionRobot==1){
+    numRangee = numRangee+1;
+  }
+  if(directionRobot==2){
+    numColonne = numColonne+1;
+  }
+  if(directionRobot==3){
+    numRangee = numRangee-1;
+  }
 }
