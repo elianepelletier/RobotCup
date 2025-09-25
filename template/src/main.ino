@@ -24,10 +24,11 @@ bool vert = false;
 bool rouge = false;
 int etat = 0; // = 0 arrêt 1 = avance 2 = recule 3 = TourneDroit 4 = TourneGauche
 int etatPast = 0;
-float vitesse = 0.20;
+float vitesse = 0.30;
 int colonne = 1; //0 a 2 colonnes
 int rangee = 0; //0 a 9 rangees
 int direction = 0;
+bool tourne2f = 0;
 
 /*
 Vos propres fonctions sont creees ici
@@ -84,7 +85,7 @@ void setup(){
   pinMode(rougepin, INPUT);
   Serial.begin(115200);   
   delay(100);
-  beep(3);
+  beep(1);
 }
 
 /*
@@ -114,7 +115,7 @@ void loop() {
   bumperArr = ROBUS_IsBumper(3);
   if (bumperArr){
     if (etat == 0){
-      beep(2);
+      beep(1);
       etat = 1;
     } 
     else{
@@ -127,38 +128,41 @@ void loop() {
   rouge = digitalRead(rougepin);
   if (etat > 0){
     if (vert && rouge){ // aucun obstacle => avance
-      if (direction == 0){
-        rangee ++;
-        etat = 1;
-      }
-      else if(direction == 1){
-        if(colonne!=2){
-          colonne++;
-          etat = 1;
-        }
-        else etat = 4;
-      }
-      else if(direction == 2){
-        rangee--;
-      }
-      else if(direction == 3){
-        if(colonne!=0){
-          colonne--;
-          etat = 1;
-        }
-        else etat = 3;
-      }
+      etat = 1;
+      tourne2f = 0;
+      // if (direction == 0){
+      //   rangee ++;
+      //   etat = 1;
+      // }
+      // else if(direction == 1){
+      //   if(colonne!=2){
+      //     colonne++;
+      //     etat = 1;
+      //   }
+      //   else etat = 4;
+      // }
+      // else if(direction == 2){
+      //   rangee--;
+      // }
+      // else if(direction == 3){
+      //   if(colonne!=0){
+      //     colonne--;
+      //     etat = 1;
+      //   }
+      //   else etat = 3;
+      // }
 
     }
     if (!vert && !rouge){  // obstacle devant 
-      avance();
       if(direction == 0 || direction == 3) //tourne droite lorsque N ou W
       {
         etat = 3;
+        tourne2f = 1;
       }
       else if(direction == 1 || direction == 2) //tourne gauche lorsque S ou E
       {
         etat = 4;
+        tourne2f = 1;
       }
     }
     
@@ -181,22 +185,43 @@ void loop() {
       recule();
       break;
     case 3:
-      tourneDroit();
+      tourneDroit(); 
+      delay(1200);
       if(direction != 3)
         direction++;
       else 
-        direction == 0;
+        direction = 0;
+      
+      if(tourne2f == 1){
+          tourneDroit(); 
+        delay(1200);
+        if(direction != 3)
+          direction++;
+        else 
+          direction = 0;
+      }
       break;
+
     case 4:
       tourneGauche();
+      delay(1200);
       if(direction != 0)
         direction--;
       else 
-        direction == 3;
+        direction = 3;
+      if(tourne2f == 1){
+        tourneGauche(); 
+        delay(1200);
+        if(direction != 3)
+          direction++;
+        else 
+          direction = 0;
+      }
       break;            
     default:
       avance();
       etat = 1;
+    
     break;
     }
   }
