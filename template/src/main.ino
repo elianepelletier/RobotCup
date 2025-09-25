@@ -100,7 +100,7 @@ Fonctions de boucle infini
 void loop() {
   while(true){
     tourneGauche();
-    //delay(200);
+    delay(200);
 
     delay(200);
   }
