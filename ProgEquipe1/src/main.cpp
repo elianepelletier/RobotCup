@@ -8,72 +8,73 @@ bool vraiSiPasCommence = true;
 int numRangee = 0; //valeurs possibles : 0 à 9
 int numColonne = 1; //valeurs possibles : 0, 1, ou 2
 
-int directionRobot = 1; //gauche = 0, fin = 1, droite = 2 et début = 3
+int directionRobot = 1; //gauche = 0, fin = 1, droite = 2 et début = 3 (après modulo 4)
 int directionVoulue = 1; //vers la fin
 int tourneGaucheDroite = 1; //tourne droite = 1 (90), tourne gauche = 0 (180)
+
 bool bumperArr;
+float vitesse = 0.40;
+
 int vertpin = 48;
 int rougepin = 49;
 bool vert = false;
 bool rouge = false;
 
 
-
 void priseDecisionRobot();
-bool verifieCapteurs();
-bool verifieMursExt();
+bool vraiSiPasMursCapteurs();
+bool vraiSiMursExt();
 void tourner();
 void avancer();
+void avance();
+void arret();
+void tourneDroit();
+void tourneGauche();
 
 void setup() {
   BoardInit();
   
-  //initialisation
   pinMode(vertpin, INPUT);
   pinMode(rougepin, INPUT);
   delay(100);
- //pin mode à setter
 
-  //mettre dans loop
-  priseDecisionRobot();
 }
 
 void loop() {
   // ajout du if pour détection 5Khz
-  
-  
+   bumperArr = ROBUS_IsBumper(3);
+   
+   if (bumperArr)
+   {
+    priseDecisionRobot();
+   }
 }
 
 void priseDecisionRobot(){
 
   while (numRangee < RANGEE_FIN)
   {
-    if (verifieCapteurs())
+    if (vraiSiPasMursCapteurs())
     {
-      if (verifieMursExt())
+      if (vraiSiMursExt())
       {
         tourner();
-        //tourne (update direction robot)
       }
-       else {
-        //avance 1 case (update num rangee ou colonne) 
+      else 
+      {
         avancer();
       }
       
-
-    } else {
-      //tourne (update direction robot)
+    } 
+    else 
+    {
       tourner();
     }
-    
-    
   }
-  
-
 }
 
 //vrai si pas de murs, faux si murs
-bool verifieCapteurs(){
+bool vraiSiPasMursCapteurs(){
   vert = digitalRead(vertpin);
   rouge = digitalRead(rougepin);
 
@@ -85,13 +86,17 @@ bool verifieCapteurs(){
   }
 }
 
-//numMur = soit 0 ou 2
 //vrai si mur noir devant robot (tape)
-bool verifieMursExt(){
-  if(numColonne==directionRobot){
+bool vraiSiMursExt(){
+  if(numColonne == (directionRobot % 4) && numColonne != 1){
   return true;
+  } 
+  else if (numRangee == 0 && (directionRobot % 4) == 3)
+  {
+    return true;
   }
-  else{
+  else
+  {
     return false;
   }
 }
@@ -100,14 +105,22 @@ bool verifieMursExt(){
 //appel fct moteurs (fct)
 //changer var direction
 void tourner(){
-  if(tourneGaucheDroite==1){
+  if(tourneGaucheDroite == 1){
     //appelle fct moteur tourne droite
+    tourneDroit();
+    delay(1100); //pour tourner 90 degrés
+    arret();
+
     directionRobot=directionRobot+1;
     tourneGaucheDroite=0;
   }
-  else if(tourneGaucheDroite==0){
+  else if(tourneGaucheDroite == 0){
     //appelle fct moteur tourne gauche
-    directionRobot=directionRobot-1;
+    tourneGauche();
+    delay(2200); //pour tourner 90 degrés
+    arret();
+
+    directionRobot=directionRobot-2;
     tourneGaucheDroite=1;
   }
 }
@@ -116,16 +129,45 @@ void tourner(){
 //change var rangée et colonne dépendant orientation
 void avancer(){
   //appeller fct moteur avancer
-  if(directionRobot==0){
+  avance();
+  delay(1100); //pour avancer environ 50 cm
+  arret();
+
+  if((directionRobot % 4) == 0){
     numColonne = numColonne-1;
   }
-  if(directionRobot==1){
+  else if((directionRobot % 4) == 1){
     numRangee = numRangee+1;
   }
-  if(directionRobot==2){
+  else if((directionRobot % 4) == 2){
     numColonne = numColonne+1;
   }
-  if(directionRobot==3){
+  else if((directionRobot % 4) == 3){
     numRangee = numRangee-1;
   }
 }
+
+void arret(){
+  MOTOR_SetSpeed(RIGHT, 0);
+  MOTOR_SetSpeed(LEFT, 0);
+};
+
+void avance(){
+  MOTOR_SetSpeed(RIGHT,vitesse);
+  MOTOR_SetSpeed(LEFT, vitesse);
+};
+
+void tourneDroit(){
+  //MOTOR_SetSpeed(RIGHT, 0.5*vitesse);
+  //MOTOR_SetSpeed(LEFT, -0.5*vitesse);
+  MOTOR_SetSpeed(RIGHT, -0.5*vitesse);
+  MOTOR_SetSpeed(LEFT, 0.5*vitesse);
+  
+};
+
+void tourneGauche(){
+  //MOTOR_SetSpeed(RIGHT, -0.5*vitesse);
+  //MOTOR_SetSpeed(LEFT, 0.5*vitesse);
+  MOTOR_SetSpeed(RIGHT, 0.5*vitesse);
+  MOTOR_SetSpeed(LEFT, -0.5*vitesse);
+};
