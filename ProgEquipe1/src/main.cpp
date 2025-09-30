@@ -108,7 +108,7 @@ void tourner(){
   if(tourneGaucheDroite == 1){
     //appelle fct moteur tourne droite
     tourneDroit();
-    delay(1100); //pour tourner 90 degrés
+    delay(1000); //pour tourner 90 degrés
     arret();
 
     directionRobot=directionRobot+1;
@@ -117,7 +117,7 @@ void tourner(){
   else if(tourneGaucheDroite == 0){
     //appelle fct moteur tourne gauche
     tourneGauche();
-    delay(2200); //pour tourner 90 degrés
+    delay(2000); //pour tourner 90 degrés
     arret();
 
     directionRobot=directionRobot-2;
@@ -130,8 +130,9 @@ void tourner(){
 void avancer(){
   //appeller fct moteur avancer
   avance();
-  delay(1100); //pour avancer environ 50 cm
+  delay(1600); //pour avancer environ 50 cm
   arret();
+
 
   if((directionRobot % 4) == 0){
     numColonne = numColonne-1;
@@ -145,6 +146,7 @@ void avancer(){
   else if((directionRobot % 4) == 3){
     numRangee = numRangee-1;
   }
+  tourneGaucheDroite = 1;
 }
 
 void arret(){
