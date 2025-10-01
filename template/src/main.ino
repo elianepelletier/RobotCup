@@ -15,7 +15,7 @@ Inclure les librairies de functions que vous voulez utiliser
 Variables globales et defines
  -> defines...
  -> L'ensemble des fonctions y ont acces
-*/
+*/ 
 
 bool bumperArr;
 int vertpin = 48;
@@ -93,137 +93,88 @@ Fonctions de boucle infini
  -> Se fait appeler perpetuellement suite au "setup"
 */
 void loop() {
-  // while(true){
-    
-  //   delay(1000);
-
-  //   vert = digitalRead(vertpin);
-  //   rouge = digitalRead(rougepin);
-
-  //   Serial.print("Vert = ");
-  //   Serial.println(vert);
-
-  //   Serial.print("Rouge = ");
-  //   Serial.println(rouge);
-  //   if(vert == 1)
-  //     avance();
-  //   else
-  //     arret();
-  // }
-    
   etatPast = etat;
   bumperArr = ROBUS_IsBumper(3);
-  if (bumperArr){
-    if (etat == 0){
+
+  // --- Bouton arrière pour start/stop ---
+  if (bumperArr) {
+    if (etat == 0) {
       beep(1);
-      etat = 1;
-    } 
-    else{
+      etat = 1; // démarre en avant
+    } else {
       beep(1);
-      etat = 0;
+      etat = 0; // stop
     }
   }
-  
+
+  // --- Lecture capteurs ---
   vert = digitalRead(vertpin);
   rouge = digitalRead(rougepin);
-  if (etat > 0){
-    if (vert && rouge){ // aucun obstacle => avance
-      etat = 1;
-      tourne2f = 0;
-      // if (direction == 0){
-      //   rangee ++;
-      //   etat = 1;
-      // }
-      // else if(direction == 1){
-      //   if(colonne!=2){
-      //     colonne++;
-      //     etat = 1;
-      //   }
-      //   else etat = 4;
-      // }
-      // else if(direction == 2){
-      //   rangee--;
-      // }
-      // else if(direction == 3){
-      //   if(colonne!=0){
-      //     colonne--;
-      //     etat = 1;
-      //   }
-      //   else etat = 3;
-      // }
 
-    }
-    if (!vert && !rouge){  // obstacle devant 
-      if(direction == 0 || direction == 3) //tourne droite lorsque N ou W
-      {
-        etat = 3;
-        tourne2f = 1;
+  // --- Décision capteurs ---
+  if (etat > 0) {
+    if (vert) {               // si vert = libre
+      etat = 1;               // avance
+    } else {                  
+      // sinon obstacle → décider gauche ou droite
+      if (colonne % 2 == 0) { // si colonne paire → tourner à droite
+        etat = 3; 
+      } else {                // si colonne impaire → tourner à gauche
+        etat = 4; 
       }
-      else if(direction == 1 || direction == 2) //tourne gauche lorsque S ou E
-      {
-        etat = 4;
-        tourne2f = 1;
-      }
     }
-    
   }
 
-  if (etatPast != etat){
+  // --- Transition d’état ---
+  if (etatPast != etat) {
     arret();
     delay(50);
   }
-  else{
-    switch (etat)
-    {
-    case 0:
+
+  // --- Actions ---
+  switch (etat) {
+    case 0: // arrêt
       arret();
       break;
-    case 1:
+
+    case 1: // avance
       avance();
-      break;
-    case 2:
-      recule();
-      break;
-    case 3:
-      tourneDroit(); 
-      delay(1200);
-      if(direction != 3)
-        direction++;
-      else 
-        direction = 0;
-      
-      if(tourne2f == 1){
-          tourneDroit(); 
-        delay(1200);
-        if(direction != 3)
-          direction++;
-        else 
-          direction = 0;
+
+      // Mise à jour position toutes les 2s (ajuste selon ta vitesse réelle)
+      static unsigned long lastUpdate = 0;
+      if (millis() - lastUpdate > 2000) {
+        if (direction == 0) rangee++;       // Nord
+        else if (direction == 2) rangee--;  // Sud
+        else if (direction == 1) colonne++; // Est
+        else if (direction == 3) colonne--; // Ouest
+        lastUpdate = millis();
+
+        Serial.print("Position: Colonne=");
+        Serial.print(colonne);
+        Serial.print(" Rangee=");
+        Serial.println(rangee);
       }
       break;
 
-    case 4:
+    case 3: // tourne droite
+      tourneDroit();
+      delay(1200); // ajuste pour 90°
+      direction = (direction + 1) % 4;
+      etat = 1; // après avoir tourné → avance
+      break;
+
+    case 4: // tourne gauche
       tourneGauche();
-      delay(1200);
-      if(direction != 0)
-        direction--;
-      else 
-        direction = 3;
-      if(tourne2f == 1){
-        tourneGauche(); 
-        delay(1200);
-        if(direction != 3)
-          direction++;
-        else 
-          direction = 0;
-      }
-      break;            
+      delay(1200); // ajuste pour 90°
+      direction = (direction + 3) % 4; // équivaut à -1 mod 4
+      etat = 1; // après avoir tourné → avance
+      break;
+
     default:
-      avance();
-      etat = 1;
-    
-    break;
-    }
+      arret();
+      etat = 0;
+      break;
   }
-  delay(200);
+
+  delay(100);
 }
