@@ -9,7 +9,6 @@ int numRangee = 0; //valeurs possibles : 0 à 9
 int numColonne = 1; //valeurs possibles : 0, 1, ou 2
 
 int directionRobot = 1; //gauche = 0, fin = 1, droite = 2 et début = 3 (après modulo 4)
-int directionVoulue = 1; //vers la fin
 int tourneGaucheDroite = 1; //tourne droite = 1 (90), tourne gauche = 0 (180)
 
 bool bumperArr;
@@ -20,7 +19,6 @@ int rougepin = 49;
 bool vert = false;
 bool rouge = false;
 
-
 void priseDecisionRobot();
 bool vraiSiPasMursCapteurs();
 bool vraiSiMursExt();
@@ -30,6 +28,7 @@ void avance();
 void arret();
 void tourneDroit();
 void tourneGauche();
+void logiqueTourneOuAvance();
 
 void setup() {
   BoardInit();
@@ -54,7 +53,22 @@ void priseDecisionRobot(){
 
   while (numRangee < RANGEE_FIN)
   {
-    if (vraiSiPasMursCapteurs())
+    logiqueTourneOuAvance();
+  }
+
+  //faire demi-tour
+  tourneGauche();
+  directionRobot -= 2;
+
+  while (numRangee < RANGEE_DEBUT)
+  {
+    logiqueTourneOuAvance();
+  }
+
+}
+
+void logiqueTourneOuAvance(){
+  if (vraiSiPasMursCapteurs())
     {
       if (vraiSiMursExt())
       {
@@ -70,7 +84,6 @@ void priseDecisionRobot(){
     {
       tourner();
     }
-  }
 }
 
 //vrai si pas de murs, faux si murs
