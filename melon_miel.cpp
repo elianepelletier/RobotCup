@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <LibRobus.h>
+#include <librobus.h>
 
 #define MOTEUR_GAUCHE 0
 #define MOTEUR_DROITE 1
