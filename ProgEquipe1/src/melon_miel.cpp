@@ -84,20 +84,20 @@ void arret() {
     MOTOR_SetSpeed(MOTEUR_DROITE, 0);
 }
 
-void setup() {
-    BoardInit();
-    ENCODER_Reset(MOTEUR_GAUCHE);
-    ENCODER_Reset(MOTEUR_DROITE);
-    delay(50);
-}
+// void setup() {
+//     BoardInit();
+//     ENCODER_Reset(MOTEUR_GAUCHE);
+//     ENCODER_Reset(MOTEUR_DROITE);
+//     delay(50);
+// }
 
-void loop() {
+// void loop() {
     
-    //droit_(1000);
-    //gauche(620);
-    //droite(620);
+//     //droit_(1000);
+//     //gauche(620);
+//     //droite(620);
 
-    while (true) { 
-        arret();
-    }
-}
+//     while (true) { 
+//         arret();
+//     }
+// }

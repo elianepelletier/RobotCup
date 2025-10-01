@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <librobus.h>
+#include <melon_miel.h>
 #define RANGEE_FIN 9
 #define RANGEE_DEBUT 0
 
@@ -25,7 +26,6 @@ bool vraiSiMursExt();
 void tourner();
 void avancer();
 void avance();
-void arret();
 void tourneDroit();
 void tourneGauche();
 void logiqueTourneOuAvance();
@@ -120,18 +120,13 @@ bool vraiSiMursExt(){
 void tourner(){
   if(tourneGaucheDroite == 1){
     //appelle fct moteur tourne droite
-    tourneDroit();
-    delay(1000); //pour tourner 90 degrés
-    arret();
+    droite(QUATRE_VINGT_DIX);
 
     directionRobot=directionRobot+1;
     tourneGaucheDroite=0;
   }
   else if(tourneGaucheDroite == 0){
-    //appelle fct moteur tourne gauche
-    tourneGauche();
-    delay(2000); //pour tourner 90 degrés
-    arret();
+    gauche(CENT_QUATRE_VINGT_DIX);
 
     directionRobot=directionRobot-2;
     tourneGaucheDroite=1;
@@ -141,10 +136,7 @@ void tourner(){
 //appel fct moteur avancer
 //change var rangée et colonne dépendant orientation
 void avancer(){
-  //appeller fct moteur avancer
-  avance();
-  delay(1600); //pour avancer environ 50 cm
-  arret();
+  droit_(CINQUANTE_CENTIMETRE);
 
 
   if((directionRobot % 4) == 0){
@@ -161,11 +153,6 @@ void avancer(){
   }
   tourneGaucheDroite = 1;
 }
-
-void arret(){
-  MOTOR_SetSpeed(RIGHT, 0);
-  MOTOR_SetSpeed(LEFT, 0);
-};
 
 void avance(){
   MOTOR_SetSpeed(RIGHT,vitesse);
