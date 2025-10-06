@@ -19,6 +19,10 @@ int vertpin = 48;
 int rougepin = 49;
 bool vert = false;
 bool rouge = false;
+int valA0;
+int valA1;
+float volt0;
+float volt1;
 
 void priseDecisionRobot();
 bool vraiSiPasMursCapteurs();
@@ -29,24 +33,52 @@ void avance();
 void tourneDroit();
 void tourneGauche();
 void logiqueTourneOuAvance();
+void beep(int count);
 
 void setup() {
   BoardInit();
   
   pinMode(vertpin, INPUT);
   pinMode(rougepin, INPUT);
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  
   delay(100);
 
 }
 
 void loop() {
   // ajout du if pour détection 5Khz
-   bumperArr = ROBUS_IsBumper(3);
+  //bumperArr = ROBUS_IsBumper(3);
    
-   if (bumperArr)
-   {
+   //if (bumperArr)
+   //{
+    //priseDecisionRobot();
+   //}
+  valA0 = analogRead(A0);
+  valA1 = analogRead(A1);
+  volt0 = valA0 * (5.000 / 1023.000);
+  volt1 = valA1 * (5.000 / 1023.000);
+
+  //beep(1);
+  //volt1 > 2.00
+  float difference = volt1 - volt0;
+  if (difference > 0.150)
+  {
+    vraiSiPasCommence = false;
     priseDecisionRobot();
-   }
+    beep(2);
+  }  
+}
+
+void beep(int count){
+  for(int i=0;i<count;i++){
+    AX_BuzzerON();
+    delay(100);
+    AX_BuzzerOFF();
+    delay(100);  
+  }
+  delay(400);
 }
 
 void priseDecisionRobot(){
@@ -57,13 +89,13 @@ void priseDecisionRobot(){
   }
 
   //faire demi-tour
-  tourneGauche();
-  directionRobot -= 2;
+  //tourneGauche();
+  //directionRobot -= 2;
 
-  while (numRangee < RANGEE_DEBUT)
-  {
-    logiqueTourneOuAvance();
-  }
+//  while (numRangee < RANGEE_DEBUT)
+//  {
+//    logiqueTourneOuAvance();
+//  }
 
 }
 
