@@ -6,9 +6,9 @@
 // --- Définitions des moteurs et distances ---
 #define MOTEUR_GAUCHE 0
 #define MOTEUR_DROITE 1
-#define QUATRE_VINGT_DIX 620
-#define CINQUANTE_CENTIMETRE 1000
-#define CENT_QUATRE_VINGT_DIX 1240
+#define QUATRE_VINGT_DIX 610
+#define CINQUANTE_CENTIMETRE 2800
+#define CENT_QUATRE_VINGT_DIX 1220
 
 // --- Constantes pour régulation vitesse ---
 const float distanceParPulse = 0.000147262;  
