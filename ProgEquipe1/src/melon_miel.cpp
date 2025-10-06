@@ -3,13 +3,13 @@
 
 #define MOTEUR_GAUCHE 0
 #define MOTEUR_DROITE 1
-#define QUATRE_VINGT_DIX 620
-#define CINQUANTE_CENTIMETRE 1000
-#define CENT_QUATRE_VINGT_DIX 1240
+#define QUATRE_VINGT_DIX 610
+#define CINQUANTE_CENTIMETRE 2800
+#define CENT_QUATRE_VINGT_DIX 1220
 
 const float distanceParPulse = 0.000147262;  
-float Vt0 = 0.6;   
-float Vt1 = 0.6;   
+float Vt0 = 0.3;   
+float Vt1 = 0.3;   
 const float Kp = 1.2;                 
 const unsigned long interval = 50;     
 
