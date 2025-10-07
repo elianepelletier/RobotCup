@@ -14,7 +14,7 @@
 const float distanceParPulse = 0.000147262;  
 extern float Vt0;   
 extern float Vt1;   
-const float Kp = 1.2;                 
+const float KpTristan = 1.2;                 
 const unsigned long interval = 50;     
 
 // --- Variables globales ---
