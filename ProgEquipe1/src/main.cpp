@@ -172,7 +172,8 @@ void arretXavier(){
 }*/
 
 void tourneGauche(){
-  angle = 75.0;
+  //angle = 92.0; //pour le robot B
+  angle = 89.410;//pour le robot A
   distance = (angle/360.0)*0.195*PI;
   distance2 = distance * 13581;
   P_RST_encodeur_1();
@@ -180,7 +181,7 @@ void tourneGauche(){
   PV_1 = 0;
   PV_2 = 0;
   ramp_max = 0.15;
-  while (distance2 >= PV_2)
+  do
   {
     delay(10);
     PIDposition1(distance,-1*PV_1,ramp_max);
@@ -191,10 +192,14 @@ void tourneGauche(){
     PV_1 = ENCODER_Read(LEFT);
     PV_2 = ENCODER_Read(RIGHT);
   } 
+  while (distance2 >= PV_2 + 30);
+    delay(1000);
+
 }
 
 void tournedroit(){
-  angle = 89.333;
+  //angle = 92.0;// pour le B
+  angle = 89.333; //pour le robot A
   distance = (angle/360.0)*0.195*PI;
   distance2 = distance * 13581; //donne 2079.966
   P_RST_encodeur_1();
@@ -217,7 +222,7 @@ void tournedroit(){
   }
   while (distance2 >= PV_1 + 30);
   //beep(2); 
-  delay(100);
+  delay(1000);
 }
 
 void tournedemilune(){
@@ -255,6 +260,8 @@ void setup() {
   pinMode(A1, INPUT);
   
   delay(100);
+    droit_(2695);
+
 
 }
 
@@ -280,6 +287,7 @@ void loop() {
     priseDecisionRobot();
     beep(2);
   }  
+  
 }
 
 void beep(int count){
@@ -373,7 +381,10 @@ void tourner(){
   else if(tourneGaucheDroite == 0){
     //gauche(CENT_QUATRE_VINGT_DIX);
     startMove();
-    tournedemilune();
+    //tournedemilune();
+    tourneGauche();
+    startMove();
+    tourneGauche();
 
     directionRobot=directionRobot-2;
     tourneGaucheDroite=1;

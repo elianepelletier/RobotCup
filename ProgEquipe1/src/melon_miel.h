@@ -7,7 +7,7 @@
 #define MOTEUR_GAUCHE 0
 #define MOTEUR_DROITE 1
 #define QUATRE_VINGT_DIX 610
-#define CINQUANTE_CENTIMETRE 2800
+#define CINQUANTE_CENTIMETRE 2695
 #define CENT_QUATRE_VINGT_DIX 1220
 
 // --- Constantes pour régulation vitesse ---
