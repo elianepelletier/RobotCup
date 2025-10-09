@@ -4,13 +4,13 @@
 #define MOTEUR_GAUCHE 0
 #define MOTEUR_DROITE 1
 #define QUATRE_VINGT_DIX 610
-#define CINQUANTE_CENTIMETRE 2800
+#define CINQUANTE_CENTIMETRE 2695
 #define CENT_QUATRE_VINGT_DIX 1220
 
 const float distanceParPulse = 0.000147262;  
 float Vt0 = 0.3;   
 float Vt1 = 0.3;   
-const float Kp = 1.2;                 
+const float KpTristan = 1.2;                 
 const unsigned long interval = 50;     
 
 
@@ -45,8 +45,8 @@ void droit_(unsigned long duree) {
             Erreur0 = Vt0 - Vp0;
             Erreur1 = Vt1 - Vp1;
 
-            commande0 = constrain(Vt0 + Kp * Erreur0, -1.0, 1.0);
-            commande1 = constrain(Vt1 + Kp * Erreur1, -1.0, 1.0);
+            commande0 = constrain(Vt0 + KpTristan * Erreur0, -1.0, 1.0);
+            commande1 = constrain(Vt1 + KpTristan * Erreur1, -1.0, 1.0);
 
             if (fabs(Vt0 - Vt1) < 0.05) {
                 if (Vp0 > Vp1) commande0 = commande1;
