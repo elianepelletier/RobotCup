@@ -1,12 +1,16 @@
 #include <Arduino.h>
+#include <libRobot.h>
 
+void departMurJaune();
 
 void setup() {
   //initialize board
-
+  BoardInit();
 }
 
 void loop() {
+  departMurJaune();
+  while (true);  
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
   //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
   
@@ -23,8 +27,31 @@ void departQuilleRose(){
 }
 
 //fonction de départ pour lorsqu'il y a le carton jaune (contourner mur)
-void departMurJaune(){
-    
+void departMurJaune()
+{
+     // Avance 50 cm
+  avance(10);
+
+  // Tourne 90° à droite
+  tourne(90, 1);
+
+  // Avance 25 cm
+  avance(25);
+
+  // Tourne 90° à gauche
+  tourne(90, 0);
+
+  // Avance 25 cm pour contourner le mur
+  avance(10);
+
+   // Tourne 90° à gauche
+  tourne(90, 0);
+
+  // Avance 25 cm pour contourner le mur
+  avance(10);
+
+    // Tourne 90° à droite
+  tourne(90, 1);
 }
 
 //fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
