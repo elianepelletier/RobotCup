@@ -123,12 +123,13 @@ void beep(int count){
 }
 
 void avance(){
-  distance = 0.5;
+  distance = 0.525;
   distance2 = distance * 13581;
   PV_1 = P_PV_encodeur_1();
   PV_2 = P_PV_encodeur_2();
-  ramp_max = 0.75;
-  while (distance2 > PV_2)
+  ramp_max = 0.03;
+  do 
+  //(distance2 > PV_2)
   {
     delay(10);
     PIDposition1(distance,PV_1,ramp_max);
@@ -139,6 +140,7 @@ void avance(){
     PV_1 = ENCODER_Read(LEFT);
     PV_2 = ENCODER_Read(RIGHT);
   } 
+  while (distance2 > PV_2 + 300);
 }
 
 void arret(){
@@ -160,7 +162,7 @@ void arret(){
 }*/
 
 void tourneGauche(){
-  angle = 90.0;
+  angle = 89.410;
   distance = (angle/360.0)*0.195*PI;
   distance2 = distance * 13581;
   P_RST_encodeur_1();
@@ -168,7 +170,8 @@ void tourneGauche(){
   PV_1 = 0;
   PV_2 = 0;
   ramp_max = 0.15;
-  while (distance2 >= PV_2)
+  do
+  //(distance2 >= PV_2)
   {
     delay(10);
     PIDposition1(distance,-1*PV_1,ramp_max);
@@ -178,11 +181,12 @@ void tourneGauche(){
     MOTOR_SetSpeed(LEFT, -1*CO1);
     PV_1 = ENCODER_Read(LEFT);
     PV_2 = ENCODER_Read(RIGHT);
-  } 
+  }
+  while (CO2 != 0); 
 }
 
 void tournedroit(){
-  angle = 90.0;
+  angle = 89.333;
   distance = (angle/360.0)*0.195*PI;
   distance2 = distance * 13581;
   P_RST_encodeur_1();
@@ -190,7 +194,8 @@ void tournedroit(){
   PV_1 = 0;
   PV_2 = 0;
   ramp_max = 0.15;
-  while (distance2 >= PV_1)
+  do 
+  //(distance2 >= PV_1)
   {
     delay(10);
     PIDposition2(distance,-1*PV_2,ramp_max);
@@ -201,10 +206,11 @@ void tournedroit(){
     PV_2 = ENCODER_Read(RIGHT);
     PV_1 = ENCODER_Read(LEFT);
   } 
+  while (CO1 != 0);
 }
 
 void tournedemilune(){
-  angle = 192;
+  angle = 185.25;
   distance = (angle/360.0)*0.195*PI;
   distance2 = distance * 13581;
   P_RST_encodeur_1();
@@ -212,8 +218,8 @@ void tournedemilune(){
   PV_1 = 0;
   PV_2 = 0;
   ramp_max = 0.15;
-  while (distance2 >= PV_2)
-  {
+  do{
+    //(distance2 >= PV_2)
     delay(10);
     PIDposition1(distance,-1*PV_1,ramp_max);
     PIDposition2(distance,PV_2,ramp_max);
@@ -222,7 +228,7 @@ void tournedemilune(){
     MOTOR_SetSpeed(LEFT, -1*CO1);
     PV_1 = ENCODER_Read(LEFT);
     PV_2 = ENCODER_Read(RIGHT);
-  }
+  } while (CO2 != 0);
 }
 
 void setup(){
@@ -238,11 +244,10 @@ void setup(){
 }
 
 void loop() {
-  delay(1000);
-  startMove();
-  tournedemilune();
-  delay(10000);
-  startMove();
-  tournedemilune();
+  for (int i=0; i < 1; i++){
+    delay(1000);
+    startMove();
+    avance();
+  }
   delay(1000000000);
 }
