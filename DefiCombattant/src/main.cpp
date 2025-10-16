@@ -24,7 +24,7 @@ void departQuilleRose(){
 
 //fonction de départ pour lorsqu'il y a le carton jaune (contourner mur)
 void departMurJaune(){
-
+    
 }
 
 //fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
