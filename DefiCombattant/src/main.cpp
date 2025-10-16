@@ -30,4 +30,11 @@ void departMurJaune(){
 //fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
 void departRetrouverLigne(){
 
+  //DEL eteintes
+  int rouge = 0;
+  int jaune = 0;
+  int bleu = 0;
+  if (rouge == 0 && jaune == 0 && bleu == 0 ){
+    //En train de tester le push
+  }
 }
