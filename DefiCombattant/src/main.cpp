@@ -1,0 +1,33 @@
+#include <Arduino.h>
+
+
+void setup() {
+  //initialize board
+
+}
+
+void loop() {
+  //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
+  //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
+  
+}
+
+//fonction de départ lorsqu'il y a le carton bleu (petite danse)
+void departDanseBleu(){
+
+}
+
+//fonction de départ lorsqu'il y a le carton rose (renverser la quille)
+void departQuilleRose(){
+
+}
+
+//fonction de départ pour lorsqu'il y a le carton jaune (contourner mur)
+void departMurJaune(){
+
+}
+
+//fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
+void departRetrouverLigne(){
+
+}
