@@ -1,18 +1,67 @@
 #include <Arduino.h>
+#include <LibRobus.h>
 
-// put function declarations here:
-int myFunction(int, int);
+enum mouvements {
+BRAS_G_HAUT,
+BRAS_D_HAUT,
+BRAS_G_BAS,
+BRAS_D_BAS,
+DEL_ROUGE,
+DEL_JAUNE,
+DEL_VERTE,
+DEL_BLEUE,
+DEL_R_BRAS_DEVANT,
+DEL_J_BRAS_HAUT,
+DEL_V_BRAS_DEVANT,
+DEL_B_BRAS_BAS,
+_360_HORAIRE_DEL_ALEATOIRES_BRAS_HAUT,
+DEL_R_ET_J_ALTERN_BRAS_BAS,
+DEL_J_ET_V_ALTERN,
+DEL_B_ET_R_ALTERN,
+_360_ANTI_HORAIRE_DEL_ALEATOIRES_BRAS_AVANT,
+POSITION_1_BRAS_BAS,
+POSITION_2,
+POSITION_3,
+POSITION_4,
+POSITION_1,
+POSITION_2,
+POSITION_3,
+POSITION_4,
+POSITION_0,
+CHANGEMENT_PLACE_MOINS_1,
+POSITION_1_DEL_R,
+POSITION_2_DEL_J,
+POSITION_3_DEL_V,
+POSITION_4_DEL_B,
+POSITION_0_TOUTES_DEL,
+_720_HORAIRE_DEL_ALEATOIRES,
+CHANGEMENT_PLACE_PLUS_1,
+POSITION_1_DEL_R,
+POSITION_2_DEL_J,
+POSITION_3_DEL_V,
+POSITION_4_DEL_B,
+POSITION_0_DEL_ALEATOIRES,
+POSITION_1_DEL_R_BRAS_DEVANT,
+POSITION_2_DEL_J_BRAS_HAUT,
+POSITION_3_DEL_V_BRAS_BAS,
+POSITION_4_DEL_B_BRAS_DEVANT,
+POSITION_1_BRAS_HAUT,
+POSITION_2_BRAS_G_HAUT_BRAS_D_DEVANT,
+POSITION_3_BRAS_DEVANT,
+POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT
+};
+long tempsDepart;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+    BoardInit();
+    //mettre les pin mode pour les 4 del
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+    bool bumperArr = ROBUS_IsBumper(3);
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+    if (bumperArr)
+    {
+        
+    }
 }
