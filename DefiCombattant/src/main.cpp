@@ -18,6 +18,36 @@ void loop() {
 
 //fonction de départ lorsqu'il y a le carton bleu (petite danse)
 void departDanseBleu(){
+  //Départ
+  tourne (45, 1);
+  delay(50);
+ 
+  avance (30);
+  delay(50);
+ 
+  tourne (90, 0);
+  delay(50);
+  
+  avance (30);
+  delay(50);
+ 
+  tourne (90, 0);
+  delay(50);
+  
+  avance (30);
+  delay(50);
+  
+  tourne (90, 0);
+  delay(50);
+
+  avance (30);
+  
+  delay(200);
+  //fin 
+
+  // Retour sur la ligne 
+  tourne (135, 0);
+  
 
 }
 
