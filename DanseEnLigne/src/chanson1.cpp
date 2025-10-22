@@ -6,23 +6,23 @@
 void brasGHaut()
 {
     bougerBrasGauche(180);   //va appeler la fonction (dans le fichier mouvementsDeBase.c)
-    delay(int);             //qui fait bouger le bras gauche en haut (où jusqu'à un certain angle)(delay à définir)                          
+    delay(15);             //qui fait bouger le bras gauche en haut (où jusqu'à un certain angle)(delay à définir)                          
 }
 
 void brasDHaut()
 {
     bougerBrasDroit(180);
-    delay(int);
+    delay(15);
 }
 
 void brasGBas()
 {
     bougerBrasGauche(0);
-    delay(int);
+    delay(15);
 }
 
 void brasDBas()
 {
     bougerBrasDroit(0);
-    delay(int);
+    delay(15);
 }

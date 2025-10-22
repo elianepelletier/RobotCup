@@ -10,8 +10,8 @@ Servo brasGauche;
 Servo brasDroit;
 
 void initBras() {
-    brasGauche.attach(int);   // Pin du bras gauche (À DÉFINIR)
-    brasDroit.attach(int);    // Pin du bras droit (À DÉFINIR)
+    brasGauche.attach(4);   // Pin du bras gauche (À DÉFINIR)
+    brasDroit.attach(7);    // Pin du bras droit (À DÉFINIR)
 }
 
 void bougerBrasGauche(int angle) {
