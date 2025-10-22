@@ -1,7 +1,7 @@
 #include "libRobot.h"
 
 float vitesse = 0.4; // vitesse par défaut
-
+/*
 // conversion cm -> ticks encodeur
 int cmToTicks(float cm) {
   return cm * 13581; // ajuster selon roue
@@ -53,4 +53,9 @@ void tourne(float angle, int sens) {
 
   MOTOR_SetSpeed(LEFT, 0);
   MOTOR_SetSpeed(RIGHT, 0);
+}
+*/
+void SERVO_Enable(uint8_t id);
+int main
+{ SERVO_Enable(0)
 }
