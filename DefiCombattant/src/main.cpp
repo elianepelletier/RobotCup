@@ -54,14 +54,14 @@ void departMurJaune()
   tourne(90, 1);
 }
 
-//fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
-void departRetrouverLigne(){
+//fonction de départ lorsqu'il y a le carton vert (pour quand il n'y a plus de ligne)
+void departRetrouverLigneVert(){
 
   //DEL eteintes
-  int rouge = 0;
+ /* int rouge = 0;
   int jaune = 0;
   int bleu = 0;
   if (rouge == 0 && jaune == 0 && bleu == 0 ){
     //En train de tester le push
-  }
+  }*/
 }
