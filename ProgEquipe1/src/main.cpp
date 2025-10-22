@@ -33,6 +33,7 @@ void tourner();
 void avancer();
 void logiqueTourneOuAvance();
 void beep(int count);
+bool vraiSiTape();
 
 //variables à Xavier
 int etat = 0; // = 0 arrêt 1 = avance 2 = recule 3 = TourneDroit 4 = TourneGauche
@@ -172,8 +173,9 @@ void arretXavier(){
 }*/
 
 void tourneGauche(){
-  //angle = 92.0; //pour le robot B
-  angle = 89.410;//pour le robot A
+  angle = 86.0;//92.0; (ancien) //pour le robot B (robot a maintenant)
+  //angle = 90.9; //pour le robot b (vrai)
+  //angle = 86.76;//89.410(ancien);//pour le robot A
   distance = (angle/360.0)*0.195*PI;
   distance2 = distance * 13581;
   P_RST_encodeur_1();
@@ -198,8 +200,9 @@ void tourneGauche(){
 }
 
 void tournedroit(){
-  //angle = 92.0;// pour le B
-  angle = 89.333; //pour le robot A
+  angle = 88.0;// pour le B (pour le A maintenant)
+  //angle = 89.4;//pour le B (vrai)
+  //angle = 89.8;//89.333;(ancien) //pour le robot A
   distance = (angle/360.0)*0.195*PI;
   distance2 = distance * 13581; //donne 2079.966
   P_RST_encodeur_1();
@@ -260,9 +263,22 @@ void setup() {
   pinMode(A1, INPUT);
   
   delay(100);
-    droit_(2695);
+  //droit_(2695);
 
+  //  for (int i = 0; i < 12; i++)
+  //  {
+  //    startMove();
+  //    tourne();
 
+  //  }
+  //  delay(5000);
+    //  for (int i = 0; i < 12; i++)
+    //  {
+    //    startMove();
+    //    tournedroit();
+    //  }
+  
+  
 }
 
 void loop() {
@@ -306,6 +322,8 @@ void priseDecisionRobot(){
   {
     logiqueTourneOuAvance();
   }
+  droit_(CINQUANTE_CENTIMETRE);
+  droit_(CINQUANTE_CENTIMETRE);
 
   //faire demi-tour
   //tourneGauche();
@@ -321,7 +339,7 @@ void priseDecisionRobot(){
 void logiqueTourneOuAvance(){
   if (vraiSiPasMursCapteurs())
     {
-      if (vraiSiMursExt())
+      if (vraiSiMursExt() || vraiSiTape())
       {
         tourner();
       }
@@ -335,6 +353,19 @@ void logiqueTourneOuAvance(){
     {
       tourner();
     }
+}
+
+//retourne vrai si tape à terre devant robot
+bool vraiSiTape(){
+  if(numColonne == 1 ){
+    if ((numRangee == 0 && (directionRobot % 4) == 1) 
+      || (numRangee == 4 && (directionRobot % 4) == 3) 
+      || (numRangee == 6 && (directionRobot % 4) == 1) )
+    {
+        return true; 
+    }
+  }
+  return false;
 }
 
 //vrai si pas de murs, faux si murs
