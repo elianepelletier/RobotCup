@@ -328,16 +328,5 @@ void remplissageTabActions(){
 
 =======
 =======
-//go crazy danse en ligne
 
-void setup() {
- 
-
-}
-
-void loop() {
-
-  
->>>>>>> Stashed changes
-}
 >>>>>>> Stashed changes
