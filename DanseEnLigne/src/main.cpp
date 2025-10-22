@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <LibRobus.h>
+#include <fonctionsChansons.h>
 
 #define LONG_TAB 47 //manque dernière chanson
 
@@ -59,6 +60,7 @@ Action tabActions[LONG_TAB]; //manque la dernière chanson
 
 //prototypes de fonctions
 void remplissageTabActions();
+void appelFonctionMouvement(enum mouvements mouv);
 
 void setup() {
     BoardInit();
@@ -72,12 +74,78 @@ void loop() {
 
     if (bumperArr)
     {
+        tempsDepart = millis();
+
         //parcours le tableau
         for (int i = 0; i < LONG_TAB; i++)
         {
-            //manque code
+            Action action = tabActions[i]; 
+            int difference = (action.temps + tempsDepart) - millis();
+            
+            if (difference > 0)
+            {
+                delay(difference);
+                i--;
+            } else {
+                appelFonctionMouvement(action.mouv);
+            }
+            
         }
         
+    }
+}
+
+void appelFonctionMouvement(enum mouvements mouv){
+    //manque les cases pour les chansons 3, 4, 5 et 6
+    //manque l'appel des fonctions pour la 2e chanson
+    
+	switch (mouv)
+	{
+		case 0:
+            brasGHaut();
+			break;
+
+		case 1:
+            brasDHaut();
+			break;
+
+		case 2:
+            brasGBas();
+			break;
+
+		case 3:
+            brasDBas();
+			break;
+
+		case 4:
+			break;
+
+		case 5:
+			break;
+
+		case 6:
+			break;
+
+		case 7:
+			break;
+
+		case 8:
+			break;
+
+		case 9:
+			break;
+
+		case 10:
+			break;
+
+		case 11:
+			break;
+
+		case 12:
+			break;
+
+		case 13:
+
     }
 }
 
@@ -169,3 +237,4 @@ void remplissageTabActions(){
     tabActions[16] = action16;
 
 }
+
