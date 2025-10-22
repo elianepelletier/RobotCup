@@ -2,6 +2,7 @@
 #include <LibRobus.h>
 #include <fonctionsChansons.h>
 
+<<<<<<< Updated upstream
 #define LONG_TAB 47 //manque dernière chanson
 
 enum mouvements {
@@ -322,5 +323,21 @@ void remplissageTabActions(){
     action16.mouv = _360_ANTI_HORAIRE_DEL_ALEATOIRES_BRAS_AVANT;
     tabActions[16] = action16;
 
+<<<<<<< Updated upstream
 }
 
+=======
+=======
+//go crazy danse en ligne
+
+void setup() {
+ 
+
+}
+
+void loop() {
+
+  
+>>>>>>> Stashed changes
+}
+>>>>>>> Stashed changes

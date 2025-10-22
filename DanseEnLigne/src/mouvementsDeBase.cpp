@@ -4,3 +4,20 @@
 //pouvoir y avoir accès
 
 #include "mouvementsBase.h"
+#include <Servo.h>
+
+Servo brasGauche;
+Servo brasDroit;
+
+void initBras() {
+    brasGauche.attach(int);   // Pin du bras gauche (À DÉFINIR)
+    brasDroit.attach(int);    // Pin du bras droit (À DÉFINIR)
+}
+
+void bougerBrasGauche(int angle) {
+    brasGauche.write(angle);
+}
+
+void bougerBrasDroit(int angle) {
+    brasDroit.write(angle);
+}
