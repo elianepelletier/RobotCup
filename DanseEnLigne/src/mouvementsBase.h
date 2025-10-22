@@ -3,4 +3,7 @@
 
 //mettre les prototypes des fonctions du fichier mouvementsDeBase.c
 
+void bougerBrasGauche();
+void bougerBrasDroit();
+
 #endif

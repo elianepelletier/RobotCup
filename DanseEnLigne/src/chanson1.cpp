@@ -12,17 +12,17 @@ void brasGHaut()
 void brasDHaut()
 {
     bougerBrasDroit(180);
-    delay(int)
+    delay(int);
 }
 
 void brasGBas()
 {
-    bougerBrasGauche(0)
-    delay(int)
+    bougerBrasGauche(0);
+    delay(int);
 }
 
 void brasDBas()
 {
-    bougerBrasDroit(0)
-    delay(int)
+    bougerBrasDroit(0);
+    delay(int);
 }
