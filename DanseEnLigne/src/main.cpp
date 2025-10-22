@@ -9,6 +9,7 @@ BRAS_G_HAUT,
 BRAS_D_HAUT,
 BRAS_G_BAS,
 BRAS_D_BAS,
+
 DEL_ROUGE,
 DEL_JAUNE,
 DEL_VERTE,
@@ -22,11 +23,13 @@ DEL_R_ET_J_ALTERN_BRAS_BAS,
 DEL_J_ET_V_ALTERN,
 DEL_B_ET_R_ALTERN,
 _360_ANTI_HORAIRE_DEL_ALEATOIRES_BRAS_AVANT,
+
 POSITION_1_BRAS_BAS,
 POSITION_2,
 POSITION_3,
 POSITION_4,
 POSITION_1,
+
 POSITION_0,
 CHANGEMENT_PLACE_MOINS_1,
 POSITION_1_DEL_R,
@@ -37,6 +40,7 @@ POSITION_0_TOUTES_DEL,
 _720_HORAIRE_DEL_ALEATOIRES,
 CHANGEMENT_PLACE_PLUS_1,
 POSITION_0_DEL_ALEATOIRES,
+
 POSITION_1_DEL_R_BRAS_DEVANT,
 POSITION_2_DEL_J_BRAS_HAUT,
 POSITION_3_DEL_V_BRAS_BAS,
@@ -98,7 +102,7 @@ void loop() {
 void appelFonctionMouvement(enum mouvements mouv){
     //manque les cases pour les chansons 3, 4, 5 et 6
     //manque l'appel des fonctions pour la 2e chanson
-    
+
 	switch (mouv)
 	{
 		case 0:
@@ -145,6 +149,88 @@ void appelFonctionMouvement(enum mouvements mouv){
 			break;
 
 		case 13:
+            break;
+            
+		case 14:
+			break;
+
+		case 15:
+			break;
+
+		case 16:
+			break;
+
+		case 17:
+			break;
+
+		case 18:
+			break;
+
+		case 19:
+			break;
+
+		case 20:
+			break;
+
+		case 21:
+			break;
+
+		case 22:
+			break;
+
+		case 23:
+			break;
+
+		case 24:
+			break;
+
+		case 25:
+			break;
+
+		case 26:
+			break;
+
+		case 27:
+			break;
+
+		case 28:
+			break;
+
+		case 29:
+			break;
+
+		case 30:
+			break;
+
+		case 31:
+			break;
+
+		case 32:
+			break;
+
+		case 33:
+			break;
+
+		case 34:
+			break;
+
+		case 35:
+			break;
+
+		case 36:
+			break;
+
+		case 37:
+			break;
+
+		case 38:
+			break;
+
+		case 39:
+			break;
+
+		default:
+			break;
 
     }
 }
