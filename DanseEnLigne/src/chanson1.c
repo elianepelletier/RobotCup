@@ -1,5 +1,6 @@
 //va contenir toutes les fonctions décrivant les mouvements qui se produiront pendant la chanson #1
 #include "fonctionsChansons.h"
+#include <mouvementsBase.h>
 
 void brasGHaut()
 {
