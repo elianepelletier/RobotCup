@@ -5,13 +5,25 @@
 
 #include "mouvementsBase.h"
 #include <Servo.h>
+#include <Arduino.h>
 
 Servo brasGauche;
 Servo brasDroit;
+int rougePin;
+int jaunePin;
+int vertPin;
+int bleuPin;
 
 void initBras() {
     brasGauche.attach(4);   // Pin du bras gauche (À DÉFINIR)
     brasDroit.attach(7);    // Pin du bras droit (À DÉFINIR)
+}
+
+void initDel(){
+    pinMode(rougePin, 0); //CHANGER LES PINS DES DEL POUR LES BONS
+    pinMode(jaunePin, 1);
+    pinMode(vertPin, 2);
+    pinMode(bleuPin, 3);
 }
 
 void bougerBrasGauche(int angle) {

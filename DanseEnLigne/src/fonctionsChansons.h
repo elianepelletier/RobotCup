@@ -3,6 +3,7 @@
 //doit rajouter tous les prototypes de fonction de toutes les chansons ici (pour pouvoir y avoir accès dans le main)
 
 //chanson 1
+void initComposantsRobot();
 void brasGHaut();
 void brasDHaut();
 void brasGBas();

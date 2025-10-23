@@ -68,8 +68,7 @@ void appelFonctionMouvement(enum mouvements mouv);
 
 void setup() {
     BoardInit();
-    //mettre les pin mode pour les 4 del
-
+    initComposantsRobot();
     remplissageTabActions();
 }
 

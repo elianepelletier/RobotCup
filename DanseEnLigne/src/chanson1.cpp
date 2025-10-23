@@ -26,3 +26,8 @@ void brasDBas()
     bougerBrasDroit(0);
     delay(15);
 }
+
+void initComposantsRobot(){
+    initBras();
+    initDel();
+}
