@@ -32,6 +32,7 @@ void position4();
 void position1();
 
 //chanson 4
+void position0();
 void changementPlaceMoins1();
 void position1DelR();
 void position2DelJ();
