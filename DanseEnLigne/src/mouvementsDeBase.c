@@ -1,1 +1,0 @@
-//va contenir toutes les fonctions qui représentent les mouvements de base (allumer la del rouge, avancer, tourner, ...)
