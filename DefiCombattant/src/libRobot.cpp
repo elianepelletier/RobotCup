@@ -124,7 +124,7 @@ void GAUCHE_360_scan(void) // on scan ou est la quille
     MOTOR_SetSpeed(1, V);
        
     
-    if (ROBUS_ReadIR(0) > 150) //  A CALIBRER detecte qqch stop lorsque le capteur donne une valeur plus haute que 0.6V !!conversion volt en bits maybe!!
+    if (ROBUS_ReadIR(0) > 600) //  A CALIBRER detecte qqch stop lorsque le capteur donne une valeur plus haute que 0.6V !!conversion volt en bits maybe!!
     {
       MOTOR_SetSpeed(0, 0.0);
       MOTOR_SetSpeed(1, 0.0);

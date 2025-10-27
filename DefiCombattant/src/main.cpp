@@ -1,17 +1,16 @@
 #include <Arduino.h>
 #include <LibRobus.h>
 #include <libRobot.h>
+
 void setup() {
   //initialize board
+BoardInit();
 }
 
 void loop()
 {
-
- BoardInit();
- ENCODER_Reset(0);
- ENCODER_Reset(1);
- quille();
+  quille();
+ while(true);
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
   //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
   
@@ -19,82 +18,24 @@ void loop()
 
 //fonction de départ lorsqu'il y a le carton bleu (petite danse)
 void departDanseBleu(){
-    //Départ
-  tourne (45, 1);
-  delay(50);
- 
-  avance (30);
-  delay(50);
- 
-  tourne (90, 0);
-  delay(50);
-  
-  avance (30);
-  delay(50);
- 
-  tourne (90, 0);
-  delay(50);
-  
-  avance (30);
-  delay(50);
-  
-  tourne (90, 0);
-  delay(50);
-
-  avance (30);
-  
-  delay(200);
-  //fin 
-
-  // Retour sur la ligne 
-  tourne (135, 0);
-  
-
 
 }
 
 //fonction de départ lorsqu'il y a le carton rose (renverser la quille)
-void departQuilleRose(){
-
+void departQuilleRose()
+{
+ 
+ quille();
 }
 
 //fonction de départ pour lorsqu'il y a le carton jaune (contourner mur)
 void departMurJaune(){
-     // Avance 50 cm
-  avance(10);
-
-  // Tourne 90° à droite
-  tourne(90, 1);
-
-  // Avance 25 cm
-  avance(25);
-
-  // Tourne 90° à gauche
-  tourne(90, 0);
-
-  // Avance 25 cm pour contourner le mur
-  avance(10);
-
-   // Tourne 90° à gauche
-  tourne(90, 0);
-
-  // Avance 25 cm pour contourner le mur
-  avance(10);
-
-    // Tourne 90° à droite
-  tourne(90, 1);
-}
-/*
-//fonction de départ lorsqu'il y a le carton vert (quand il n'y a plus de ligne)
-void departRetrouverLigneVert(){
-
     
 }
 
 //fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
 void departRetrouverLigne(){
 
-<<<<<<< Updated upstream
   int etat = 0; //Temporaire, Remplacer par les états de la fonction à Xavier
 //etat = Lire etat de la fonction a xavier*********************************************************
 
@@ -212,7 +153,4 @@ void departRetrouverLigne(){
   else{
     //Essayer de chercher et trouver la ligne
   }
-=======
->>>>>>> Stashed changes
 }
-*/
