@@ -93,7 +93,7 @@ void departRetrouverLigneVert(){
 
 //Suivre la ligne jusqu'à ce qu'on arrive à la ligne perpendiculaire de départ
   while (etat != 7){//etat tout allumés
-    avance(1);//ou appeler la fonction suivre la ligne
+    avance(1);//ou appeler la fonction suivre la ligne*********************************************
     //etat = Lire etat de la fonction a xavier*****************************************************
   }
 
