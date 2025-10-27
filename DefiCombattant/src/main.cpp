@@ -1,17 +1,21 @@
 #include <Arduino.h>
+#include <LibRobus.h>
 #include <libRobot.h>
 
+void departDanseBleu();
 void departMurJaune();
-void departRetrouverLigneVert();
 
 void setup() {
   //initialize board
   BoardInit();
 }
 
-void loop() {
+void loop()
+{
   departMurJaune();
-  while (true);  
+  delay(5000);
+  quille();
+  while(true);
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
   //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
   
@@ -48,45 +52,45 @@ void departDanseBleu(){
 
   // Retour sur la ligne 
   tourne (135, 0);
-  
 
 }
 
 //fonction de départ lorsqu'il y a le carton rose (renverser la quille)
-void departQuilleRose(){
-
+void departQuilleRose()
+{
+  quille();
 }
 
 //fonction de départ pour lorsqu'il y a le carton jaune (contourner mur)
-void departMurJaune()
-{
-     // Avance 50 cm
-  avance(10);
+void departMurJaune() {
+    avance(100);
+    delay(50);
 
-  // Tourne 90° à droite
-  tourne(90, 1);
+    tourne(300, true);   // droite = true ?
+    delay(50);
 
-  // Avance 25 cm
-  avance(25);
+    avance(250);
+    delay(50);
 
-  // Tourne 90° à gauche
-  tourne(90, 0);
+    tourne(300, false);  // gauche
+    delay(50);
 
-  // Avance 25 cm pour contourner le mur
-  avance(10);
+    avance(100);
+    delay(50);
 
-   // Tourne 90° à gauche
-  tourne(90, 0);
+    tourne(300, false);  // gauche
+    delay(50);
 
-  // Avance 25 cm pour contourner le mur
-  avance(10);
+    avance(250);
+    delay(50);
 
-    // Tourne 90° à droite
-  tourne(90, 1);
+    tourne(300, true);   // droite
+    delay(50);
 }
 
-//fonction de départ lorsqu'il y a le carton vert (quand il n'y a plus de ligne)
-void departRetrouverLigneVert(){
+
+//fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
+void departRetrouverLigne(){
 
   int etat = 0; //Temporaire, Remplacer par les états de la fonction à Xavier
 //etat = Lire etat de la fonction a xavier*********************************************************

@@ -7,5 +7,14 @@ void initBras();
 void initDel();
 void bougerBrasGauche(int angle);
 void bougerBrasDroit(int angle);
+void allumeDELRouge(void);
+void fermeDELRouge(void);
+void allumeDELJaune(void);
+void fermeDELJaune(void);
+void allumeDELVert(void);
+void fermeDELVert(void);
+void allumeDELBleu(void);
+void fermeDELBleu(void);
+
 
 #endif

@@ -5,50 +5,55 @@
 #define LONG_TAB 47 //manque dernière chanson
 
 enum mouvements {
-BRAS_G_HAUT,
-BRAS_D_HAUT,
-BRAS_G_BAS,
-BRAS_D_BAS,
+    //chanson 1
+    BRAS_G_HAUT,
+    BRAS_D_HAUT,
+    BRAS_G_BAS,
+    BRAS_D_BAS,
+    //chanson 2
+    DEL_ROUGE,
+    DEL_JAUNE,
+    DEL_VERTE,
+    DEL_BLEUE,
+    DEL_R_BRAS_DEVANT,
+    DEL_J_BRAS_HAUT,
+    DEL_V_BRAS_DEVANT,
+    DEL_B_BRAS_BAS,
+    _360_HORAIRE_DEL_ALEATOIRES_BRAS_HAUT,
+    DEL_R_ET_J_ALTERN_BRAS_BAS,
+    DEL_J_ET_V_ALTERN,
+    DEL_B_ET_R_ALTERN,
+    _360_ANTI_HORAIRE_DEL_ALEATOIRES_BRAS_AVANT,
+    //chanson 3
+    POSITION_1_BRAS_BAS,
+    POSITION_2,
+    POSITION_3,
+    POSITION_4,
+    POSITION_1,
+    //chanson 4
+    POSITION_0,
+    CHANGEMENT_PLACE_MOINS_1,
+    POSITION_1_DEL_R,
+    POSITION_2_DEL_J,
+    POSITION_3_DEL_V,
+    POSITION_4_DEL_B,
+    POSITION_0_TOUTES_DEL,
+    _720_HORAIRE_DEL_ALEATOIRES,
+    CHANGEMENT_PLACE_PLUS_1,
+    POSITION_0_DEL_ALEATOIRES,
+    //chanson 5
+    POSITION_1_DEL_R_BRAS_DEVANT,
+    POSITION_2_DEL_J_BRAS_HAUT,
+    POSITION_3_DEL_V_BRAS_BAS,
+    POSITION_4_DEL_B_BRAS_DEVANT,
+    POSITION_1_BRAS_HAUT,
+    POSITION_2_BRAS_G_HAUT_BRAS_D_DEVANT,
+    POSITION_3_BRAS_DEVANT,
+    POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT
+    //chanson 6
 
-DEL_ROUGE,
-DEL_JAUNE,
-DEL_VERTE,
-DEL_BLEUE,
-DEL_R_BRAS_DEVANT,
-DEL_J_BRAS_HAUT,
-DEL_V_BRAS_DEVANT,
-DEL_B_BRAS_BAS,
-_360_HORAIRE_DEL_ALEATOIRES_BRAS_HAUT,
-DEL_R_ET_J_ALTERN_BRAS_BAS,
-DEL_J_ET_V_ALTERN,
-DEL_B_ET_R_ALTERN,
-_360_ANTI_HORAIRE_DEL_ALEATOIRES_BRAS_AVANT,
 
-POSITION_1_BRAS_BAS,
-POSITION_2,
-POSITION_3,
-POSITION_4,
-POSITION_1,
 
-POSITION_0,
-CHANGEMENT_PLACE_MOINS_1,
-POSITION_1_DEL_R,
-POSITION_2_DEL_J,
-POSITION_3_DEL_V,
-POSITION_4_DEL_B,
-POSITION_0_TOUTES_DEL,
-_720_HORAIRE_DEL_ALEATOIRES,
-CHANGEMENT_PLACE_PLUS_1,
-POSITION_0_DEL_ALEATOIRES,
-
-POSITION_1_DEL_R_BRAS_DEVANT,
-POSITION_2_DEL_J_BRAS_HAUT,
-POSITION_3_DEL_V_BRAS_BAS,
-POSITION_4_DEL_B_BRAS_DEVANT,
-POSITION_1_BRAS_HAUT,
-POSITION_2_BRAS_G_HAUT_BRAS_D_DEVANT,
-POSITION_3_BRAS_DEVANT,
-POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT
 }; //manque dernière chanson
 
 typedef struct 
@@ -61,6 +66,7 @@ typedef struct
 //variables globales
 long tempsDepart;
 Action tabActions[LONG_TAB]; //manque la dernière chanson
+bool bumperArr;
 
 //prototypes de fonctions
 void remplissageTabActions();
@@ -70,21 +76,21 @@ void setup() {
     BoardInit();
     initComposantsRobot();
     remplissageTabActions();
+    // Serial.begin(9600);
 }
 
 void loop() {
-    bool bumperArr = ROBUS_IsBumper(3);
+    bumperArr = ROBUS_IsBumper(3);
 
     if (bumperArr)
     {
         tempsDepart = millis();
 
-        //parcours le tableau
         for (int i = 0; i < LONG_TAB; i++)
         {
             Action action = tabActions[i]; 
             int difference = (action.temps + tempsDepart) - millis();
-            
+
             if (difference > 0)
             {
                 delay(difference);
@@ -272,6 +278,7 @@ void appelFonctionMouvement(enum mouvements mouv){
 
 //le tableau est juste rempli pour les 5 premières chansons (manque la 6e)
 void remplissageTabActions(){
+    //chanson 1
     Action action0;
     action0.temps = 16000;
     action0.mouv = BRAS_G_HAUT;
@@ -292,6 +299,7 @@ void remplissageTabActions(){
     action3.mouv = BRAS_D_BAS;
     tabActions[3] = action3;
 
+    //chanson 2
     Action action4;
     action4.temps = 32000;
     action4.mouv = DEL_ROUGE;
@@ -357,6 +365,7 @@ void remplissageTabActions(){
     action16.mouv = _360_ANTI_HORAIRE_DEL_ALEATOIRES_BRAS_AVANT;
     tabActions[16] = action16;
 
+    //chanson 3
     Action action17;
     action17.temps =  64000;
     action17.mouv =  POSITION_1_BRAS_BAS;
@@ -397,6 +406,7 @@ void remplissageTabActions(){
     action24.mouv =  POSITION_4;
     tabActions[24] = action24;
 
+    //chanson 4
     Action action25;
     action25.temps =  96000;
     action25.mouv =  POSITION_0;
@@ -462,6 +472,7 @@ void remplissageTabActions(){
     action37.mouv =  POSITION_4_DEL_B;
     tabActions[37] = action37;
 
+    //chanson 5
     Action action38;
     action38.temps =  156000;
     action38.mouv =  POSITION_0_DEL_ALEATOIRES;
@@ -506,5 +517,7 @@ void remplissageTabActions(){
     action46.temps =  188000;
     action46.mouv =  POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT;
     tabActions[46] = action46;
+
+    //chanson 6 (pas fait encore)
 }
 

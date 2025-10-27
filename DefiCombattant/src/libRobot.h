@@ -1,11 +1,21 @@
-#define ROBOTMOVE_H
+#ifndef LIBROBOT_H
+#define LIBROBOT_H
 
 #include <Arduino.h>
 #include <librobus.h>
 
-// vitesse par défaut
-extern float vitesse;
+// ---- CONSTANTES ----
+#define MOTEUR_GAUCHE 0
+#define MOTEUR_DROITE 1
 
-// fonctions globales
-void avance(float cm);          // avance en cm
-void tourne(float angle, int sens); // sens: 1=droite, 0=gauche
+// ---- VARIABLES externes ----
+extern float Vt0;
+extern float Vt1;
+
+// ---- FONCTIONS ----
+void arret();
+void avance(float distanceCm);            // avance en cm
+void tourne(int angleDeg, bool tourneGauche); // tourneGauche = true=gauche, false=droite
+void quille(void);
+
+#endif
