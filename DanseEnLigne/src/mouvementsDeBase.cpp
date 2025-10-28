@@ -7,6 +7,8 @@
 // #include <Servo.h>
 #include <Arduino.h>
 #include <LibRobus.h>
+#include <stdlib.h>
+
 
 // Servo brasGauche;
 // Servo brasDroite;
@@ -81,3 +83,7 @@ void allumeFermeAvecDelay(int d, int pin){
     digitalWrite(pin, LOW);
 }
 
+void allumeDELaleatoire(int d){
+    int randomPin = rand() % (bleuPin - rougePin + 1) + rougePin;
+    allumeFermeAvecDelay(d, randomPin);
+}

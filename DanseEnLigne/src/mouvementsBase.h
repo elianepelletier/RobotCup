@@ -25,6 +25,8 @@ void fermeDELVert(void);
 void allumeDELBleu(void);
 void fermeDELBleu(void);
 void allumeFermeAvecDelay(int d, int pin);
+void allumeDELaleatoire(int d);
+
 
 
 #endif
