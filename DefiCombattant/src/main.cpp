@@ -12,8 +12,7 @@ void setup() {
 
 void loop()
 {
-  departMurJaune();
-  delay(5000);
+ departMurJaune();
   quille();
   while(true);
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
@@ -97,7 +96,7 @@ void departRetrouverLigne(){
 
 //Suivre la ligne jusqu'à ce qu'on arrive à la ligne perpendiculaire de départ
   while (etat != 7){//etat tout allumés
-    avance(1);//ou appeler la fonction suivre la ligne
+    avance(1);//ou appeler la fonction suivre la ligne*********************************************
     //etat = Lire etat de la fonction a xavier*****************************************************
   }
 
@@ -122,7 +121,7 @@ void departRetrouverLigne(){
       case 2://gauche allumé
       case 4://centre et gauche allumés
         while(etat != 0){
-          tourne(1,1);//Tourne vers la droite jusqu'à ce que les trois capteurs s'éteignent
+          tourne(10,1);//Tourne vers la droite jusqu'à ce que les trois capteurs s'éteignent
           //etat = Lire etat de la fonction a xavier**************************************************
         }
         break;
@@ -130,7 +129,7 @@ void departRetrouverLigne(){
       case 3://droite allumé
       case 5://centre et droite allumés
         while(etat != 0){
-           tourne(1,0);//Tourne vers la gauche jusqu'à ce que les trois capteurs s'éteignent
+           tourne(10,0);//Tourne vers la gauche jusqu'à ce que les trois capteurs s'éteignent
            //etat = Lire etat de la fonction a xavier**************************************************
         }
         break;
@@ -147,7 +146,8 @@ void departRetrouverLigne(){
   }
 
   //Avancer longue distance sans ligne
-  avance(70);//Modifier cette valeur selon les tests
+  avance(140);//Modifier cette valeur selon les tests
+  delay(50);
 
   //Retrouver la ligne perpendiculaire d'arrivée apres avoir traversé le trou
   while(etat == 0){//Tous éteintes, n'a pas encore retrouvé la ligne
@@ -170,7 +170,7 @@ void departRetrouverLigne(){
       case 2://gauche allumé
       case 4://centre et gauche allumés
         while(etat != 7){
-          tourne(1,1);//Tourne vers la droite jusqu'à ce que les trois capteurs s'allument
+          tourne(10,1);//Tourne vers la droite jusqu'à ce que les trois capteurs s'allument
           //etat = appeler fonction de Xavier pour les etats**************************************************
         }
         break;
@@ -178,7 +178,7 @@ void departRetrouverLigne(){
       case 3://droite allumé
       case 5://centre et droite allumés
         while(etat != 7){
-           tourne(1,0);//Tourne vers la gauche jusqu'à ce que les trois capteurs s'allument
+           tourne(10,0);//Tourne vers la gauche jusqu'à ce que les trois capteurs s'allument
            //etat = appeler fonction de Xavier pour les etats**************************************************
         }
         break;

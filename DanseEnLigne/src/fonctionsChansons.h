@@ -54,5 +54,9 @@ void position3BrasDevant();
 void position4BrasGDevantBrasDHaut();
 
 //chanson 6
+void position1BrasHautDelAleatoiresFin();
+void position1BrasHaut360();
+void position3BrasDevant360();
+void faire1080();
 
 #endif 

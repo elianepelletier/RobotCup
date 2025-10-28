@@ -2,7 +2,7 @@
 #include <LibRobus.h>
 #include <fonctionsChansons.h>
 
-#define LONG_TAB 47 //manque dernière chanson
+#define LONG_TAB 66
 
 enum mouvements {
     //chanson 1
@@ -49,12 +49,13 @@ enum mouvements {
     POSITION_1_BRAS_HAUT,
     POSITION_2_BRAS_G_HAUT_BRAS_D_DEVANT,
     POSITION_3_BRAS_DEVANT,
-    POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT
+    POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT,
     //chanson 6
-
-
-
-}; //manque dernière chanson
+    POSITION_1_BRAS_HAUT_DEL_ALEATOIRES_FIN,
+    POSITION_1_BRAS_HAUT_360,
+    POSITION_3_BRAS_DEVANT_360,
+    FAIRE_1080
+};
 
 typedef struct 
 {
@@ -65,7 +66,7 @@ typedef struct
 
 //variables globales
 long tempsDepart;
-Action tabActions[LONG_TAB]; //manque la dernière chanson
+Action tabActions[LONG_TAB];
 bool bumperArr;
 
 //prototypes de fonctions
@@ -76,7 +77,7 @@ void setup() {
     BoardInit();
     initComposantsRobot();
     remplissageTabActions();
-    // Serial.begin(9600);
+    Serial.begin(9600);
 }
 
 void loop() {
@@ -96,6 +97,15 @@ void loop() {
                 delay(difference);
                 i--;
             } else {
+                Serial.println("temps actuel : ");
+                Serial.print(millis()- tempsDepart);
+                Serial.print("\n");
+                Serial.println("temps voulu de l'action : ");
+                Serial.print(action.temps);
+                Serial.print("\n");
+                Serial.println("mouvement : ");
+                Serial.print(action.mouv);
+                Serial.print("\n\n");
                 appelFonctionMouvement(action.mouv);
             }
             
@@ -105,8 +115,6 @@ void loop() {
 }
 
 void appelFonctionMouvement(enum mouvements mouv){
-    //manque les cases pour les chansons 3, 4, 5 et 6
-    //manque l'appel des fonctions pour la 2e chanson
 
 	switch (mouv)
 	{
@@ -270,13 +278,28 @@ void appelFonctionMouvement(enum mouvements mouv){
             position4BrasGDevantBrasDHaut();
 			break;
 
-		default:
+        case 40:
+            position1BrasHautDelAleatoiresFin();
+            break;
+
+        case 41:
+            position1BrasHaut360();
+            break;
+
+        case 42:
+            position3BrasDevant360();
+            break;
+        
+        case 43:
+            faire1080();
+            break;
+        
+        default:
 			break;
 
     }
 }
 
-//le tableau est juste rempli pour les 5 premières chansons (manque la 6e)
 void remplissageTabActions(){
     //chanson 1
     Action action0;
@@ -518,6 +541,100 @@ void remplissageTabActions(){
     action46.mouv =  POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT;
     tabActions[46] = action46;
 
-    //chanson 6 (pas fait encore)
+    //chanson 6 
+    Action action47;
+    action47.temps = 192000;
+    action47.mouv = POSITION_1_BRAS_HAUT_DEL_ALEATOIRES_FIN;
+    tabActions[47] = action47;
+
+    Action action48;
+    action48.temps = 194500;
+    action48.mouv = POSITION_2_BRAS_G_HAUT_BRAS_D_DEVANT;
+    tabActions[48] = action48;
+
+    Action action49;
+    action49.temps = 197000;
+    action49.mouv = POSITION_3_BRAS_DEVANT;
+    tabActions[49] = action49;
+
+    Action action50;
+    action50.temps = 199500;
+    action50.mouv = POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT;
+    tabActions[50] = action50;
+
+    Action action51;
+    action51.temps = 202000;
+    action51.mouv = POSITION_1_BRAS_HAUT_360;
+    tabActions[51] = action51;
+
+    Action action52;
+    action52.temps = 204500;
+    action52.mouv = POSITION_2_BRAS_G_HAUT_BRAS_D_DEVANT;
+    tabActions[52] = action52;
+
+    Action action53;
+    action53.temps = 207000;
+    action53.mouv = POSITION_3_BRAS_DEVANT;
+    tabActions[53] = action53;
+
+    Action action54;
+    action54.temps = 209500;
+    action54.mouv = POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT;
+    tabActions[54] = action54;
+
+    Action action55;
+    action55.temps = 212000;
+    action55.mouv = POSITION_1_BRAS_HAUT_360;
+    tabActions[55] = action55;
+
+    Action action56;
+    action56.temps = 214500;
+    action56.mouv = POSITION_2_BRAS_G_HAUT_BRAS_D_DEVANT;
+    tabActions[56] = action56;
+
+    Action action57;
+    action57.temps = 217000;
+    action57.mouv = POSITION_3_BRAS_DEVANT;
+    tabActions[57] = action57;
+
+    Action action58;
+    action58.temps = 219500;
+    action58.mouv = POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT;
+    tabActions[58] = action58;
+
+    Action action59;
+    action59.temps = 222000;
+    action59.mouv = POSITION_1_BRAS_HAUT_360;
+    tabActions[59] = action59;
+
+    Action action60;
+    action60.temps = 224500;
+    action60.mouv = POSITION_2_BRAS_G_HAUT_BRAS_D_DEVANT;
+    tabActions[60] = action60;
+
+    Action action61;
+    action61.temps = 227000;
+    action61.mouv = POSITION_3_BRAS_DEVANT_360;
+    tabActions[61] = action61;
+
+    Action action62;
+    action62.temps = 229500;
+    action62.mouv = POSITION_4_BRAS_G_DEVANT_BRAS_D_HAUT;
+    tabActions[62] = action62;
+
+    Action action63;
+    action63.temps = 232000;
+    action63.mouv = POSITION_1_BRAS_HAUT_360;
+    tabActions[63] = action63;
+
+    Action action64;
+    action64.temps = 234500;
+    action64.mouv = POSITION_0;
+    tabActions[64] = action64;
+
+    Action action65;
+    action65.temps = 237000;
+    action65.mouv = FAIRE_1080;
+    tabActions[65] = action65;
 }
 
