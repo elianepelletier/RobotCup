@@ -61,7 +61,7 @@ void avance(float distanceCm) {
     int32_t lastPulse1 = ENCODER_Read(MOTEUR_DROITE);
 
     lastTime = millis();
-    float distanceM = distanceCm / 100.0;
+    float distanceM = distanceCm / 100.0 * 2.067;
 
     Vt0 = vitesseAvance;
     Vt1 = vitesseAvance;
@@ -112,7 +112,7 @@ void tourne(int angleDeg, bool tourneGauche) {
     int32_t lastPulse1 = ENCODER_Read(MOTEUR_DROITE);
 
     lastTime = millis();
-    const float pulsesParDegre = 6.8;  // à calibrer selon ton robot
+    const float pulsesParDegre = 22.1;  // à calibrer selon ton robot
     float cible = angleDeg * pulsesParDegre;
 
     // Consignes de vitesse
