@@ -52,7 +52,7 @@ int angleToTicks(float angle) {
 // ====================================================================
 // AVANCER D’UNE DISTANCE DONNÉE (cm)
 // ====================================================================
-void avance(float distanceCm) {
+void avance(float distanceCm, int direction = 1) {
     ENCODER_Reset(MOTEUR_GAUCHE);
     ENCODER_Reset(MOTEUR_DROITE);
 
@@ -63,8 +63,8 @@ void avance(float distanceCm) {
     lastTime = millis();
     float distanceM = distanceCm / 100.0 * 2.067;
 
-    Vt0 = vitesseAvance;
-    Vt1 = vitesseAvance;
+    Vt0 = vitesseAvance * direction;
+    Vt1 = vitesseAvance * direction;
 
     while (true) {
         unsigned long now = millis();

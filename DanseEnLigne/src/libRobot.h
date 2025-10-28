@@ -14,7 +14,7 @@ extern float Vt1;
 
 // ---- FONCTIONS ----
 void arret();
-void avance(float distanceCm);            // avance en cm
+void avance(float distanceCm, int direction = 1);            // avance en cm
 void tourne(int angleDeg, bool tourneGauche); // tourneGauche = true=gauche, false=droite
 void quille(void);
 
