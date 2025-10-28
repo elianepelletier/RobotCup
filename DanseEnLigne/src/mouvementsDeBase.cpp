@@ -70,3 +70,10 @@ void allumeDELBleu() {
 void fermeDELBleu() {
     digitalWrite(bleuPin, LOW);
 }
+
+void allumeFermeAvecDelay(int d, int pin){
+    digitalWrite(pin, HIGH);
+    delay(d);
+    digitalWrite(pin, LOW);
+}
+
