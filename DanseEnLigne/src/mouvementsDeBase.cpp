@@ -10,10 +10,14 @@
 
 // Servo brasGauche;
 // Servo brasDroite;
-int rougePin = 40; //CHANGER LES PINS DES DEL POUR LES BONS
+int rougePin = 40; 
 int jaunePin = 41;
 int vertPin = 42;
 int bleuPin = 43;
+
+int angleBrasBas = 0;
+int angleBrasHaut = 180;
+int angleBrasDevant = 90;
 
 void initBras() {
     //brasGauche.attach(4);   // Pin du bras gauche (À DÉFINIR)

@@ -5,29 +5,42 @@
 
 void brasGHaut()
 {
-    bougerBrasGauche(180);   //va appeler la fonction (dans le fichier mouvementsDeBase.c)
+    bougerBrasGauche(angleBrasHaut);   //va appeler la fonction (dans le fichier mouvementsDeBase.c)
     delay(15);             //qui fait bouger le bras gauche en haut (où jusqu'à un certain angle)(delay à définir)                          
 }
 
 void brasDHaut()
 {
-    bougerBrasDroit(180);
+    bougerBrasDroit(angleBrasHaut);
     delay(15);
 }
 
 void brasGBas()
 {
-    bougerBrasGauche(0);
+    bougerBrasGauche(angleBrasBas);
     delay(15);
 }
 
 void brasDBas()
 {
-    bougerBrasDroit(0);
+    bougerBrasDroit(angleBrasBas);
     delay(15);
 }
 
 void initComposantsRobot(){
     initBras();
     initDel();
+    // allumeDELRouge();
+    // delay(1000);
+    // fermeDELRouge();
+    // allumeDELJaune();
+    // delay(1000);
+    // fermeDELJaune();
+    // allumeDELVert();
+    // delay(1000);
+    // fermeDELVert();
+    // allumeDELBleu();
+    // delay(1000);
+    // fermeDELBleu();
+    
 }

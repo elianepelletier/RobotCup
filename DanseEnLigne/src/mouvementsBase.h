@@ -8,6 +8,10 @@ extern int jaunePin;
 extern int vertPin; 
 extern int bleuPin; 
 
+extern int angleBrasBas;
+extern int angleBrasHaut;
+extern int angleBrasDevant;
+
 void initBras();
 void initDel();
 void bougerBrasGauche(int angle);
