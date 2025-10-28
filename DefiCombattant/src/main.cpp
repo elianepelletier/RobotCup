@@ -1,6 +1,10 @@
 #include <Arduino.h>
 #include <LibRobus.h>
 #include <libRobot.h>
+#include <Wire.h>
+#include <Adafruit_TCS34725.h>
+#include <Capteur.h>
+#include <SuiveurDeLigne.h>
 
 void departDanseBleu();
 void departMurJaune();
