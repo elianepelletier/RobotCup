@@ -14,35 +14,31 @@ void position1BrasBas()
 //à partir de pos 1
 void position2()
 {
-    avance(20, -1);
-    tourne(90, true);
-    avance(20); 
-    tourne(90, false);
+    tourne(45, false);
+    avance(28.28, -1); 
+    tourne(45, true);
 }
 
 //à partir de pos 2
 void position3()
 {
-    tourne(90, false);
-    avance(20);
-    tourne(90, true);
-    avance(20, -1);
+    tourne(45, true);
+    avance(28.28, -1);
+    tourne(45, false);
 }
 
 //à partir de pos 3
 void position4()
 {
-    avance(20);
-    tourne(90, false);
-    avance(20);
-    tourne(90, true);
+    tourne(45, false);
+    avance(28.28);
+    tourne(45, true);
 }
 
 //à partir de pos 4
 void position1()
 {
-    tourne(90, true);
-    avance(20);
-    tourne(90, false);
-    avance(20);
+    tourne(45, true);
+    avance(28.28);
+    tourne(45, false);
 }

@@ -17,8 +17,8 @@ int jaunePin = 41;
 int vertPin = 42;
 int bleuPin = 43;
 
-int angleBrasBas = 0;
-int angleBrasHaut = 180;
+int angleBrasBas = 180;
+int angleBrasHaut = 0;
 int angleBrasDevant = 90;
 
 void initBras() {

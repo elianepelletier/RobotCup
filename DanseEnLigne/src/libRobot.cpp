@@ -92,8 +92,8 @@ void avance(float distanceCm, int direction = 1) {
 
             float distG = pulse0 * distanceParPulse;
             float distD = pulse1 * distanceParPulse;
-            if ((distG + distD) / 2.0 >= distanceM) break;
-        }
+            float moyenne = ((distG + distD)/2.0);
+            if ((direction == 1 && moyenne >= distanceM) || (direction == -1 && moyenne <= -distanceM)) break;        }
     }
 
     MOTOR_SetSpeed(MOTEUR_GAUCHE, 0);
