@@ -12,6 +12,12 @@ void departQuilleRose();
 void setup() {
   //initialize board
   BoardInit();
+  CapteurInit();
+  if (CapteurInit()) {
+    Serial.println("Capteur détecté !");
+    while(1);
+  }
+  else Serial.println("Capteur non détecté. Vérifie le câblage SDA/SCL.");
 }
 
 void loop()
@@ -25,8 +31,9 @@ void loop()
   //departMurJaune();
   //delay(5000);
   //departDanseBleu();
-  delay(5000);
-  departQuilleRose();
+  //delay(5000);
+  void readcapteurSLL();
+  //departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
   //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
@@ -224,4 +231,27 @@ void departRetrouverLigne(){
   else{
     //Essayer de chercher et trouver la ligne
   }
+}
+
+void readcapteurSLL(){
+  // Lire l'état des capteurs
+  int test = suiveurligne();
+
+  // Affichage des informations
+  Serial.print("Etat du suiveur de ligne : ");
+  Serial.println(test);
+
+  // Optionnel : détail des capteurs
+  Serial.print("Capteur Gauche: ");
+  Serial.print(digitalRead(39));
+  Serial.print("  Milieu: ");
+  Serial.print(digitalRead(40));
+  Serial.print("  Droite: ");
+  Serial.println(digitalRead(41));
+
+  /*// Ajustement moteur (si tu veux tester le suivi en même temps)
+  Etat = etat;       // mettre à jour la variable globale
+  Suislaligne();     // ajuste les moteurs selon l'état*/
+
+  delay(500); // un petit délai pour lecture lisible
 }

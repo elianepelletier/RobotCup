@@ -39,7 +39,7 @@ void rgbToHsv(int r, int g, int b, float *h, float *s, float *v) {
 }
 
 // Détection de la couleur dominante
-String detectColor(bool afficher = 0) {
+String detectColor(bool afficher) {
     uint16_t r, g, b, c;
     tcs.getRawData(&r, &g, &b, &c);
     
@@ -79,9 +79,9 @@ String detectColor(bool afficher = 0) {
 
 //etat du capteur de suiveur de ligne
 int suiveurligne() {
-    bool Etatgauche = digitalRead(39);
-    bool Etatmilieu = digitalRead(40);
-    bool Etatdroite = digitalRead(41);
+    bool Etatgauche = digitalRead(47);
+    bool Etatmilieu = digitalRead(48);
+    bool Etatdroite = digitalRead(49);
 
     if ( Etatmilieu == 0) {
         if (Etatdroite == 1 && Etatgauche == 1) {
@@ -120,8 +120,8 @@ int suiveurligne() {
 
   return -1;
 }
-/*
-void setup() {
+
+bool CapteurInit() {
   Serial.begin(9600);
   Serial.println("Initialisation du capteur TCS34725...");
   
@@ -129,14 +129,12 @@ void setup() {
   pinMode(40, INPUT);
   pinMode(41, INPUT);
 
-  if (tcs.begin()) {
-    Serial.println("Capteur détecté !");
-  } else {
-    Serial.println("Capteur non détecté. Vérifie le câblage SDA/SCL.");
-    while (1);
-  }
+  if (tcs.begin()) return true;
+    /*Serial.println("Capteur détecté !");*/
+    else return false;
+    /*Serial.println("Capteur non détecté. Vérifie le câblage SDA/SCL.");*/
 }
-
+/*
 void loop() {
   uint16_t r, g, b, c;
   tcs.getRawData(&r, &g, &b, &c);

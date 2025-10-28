@@ -7,5 +7,6 @@
 
 int suiveurligne();
 String detectColor(bool afficher = false);
+bool CapteurInit();
 
 #endif
