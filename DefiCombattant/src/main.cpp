@@ -12,9 +12,16 @@ void setup() {
 
 void loop()
 {
- departMurJaune();
-  quille();
-  while(true);
+  // for (int i = 0; i < 8; i++)
+  // {
+  //   tourne (45, 0);
+  //   delay(300);
+  // }
+  departMurJaune();
+  delay(5000);
+  departDanseBleu();
+  delay(5000);
+  //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
   //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
   
@@ -24,29 +31,29 @@ void loop()
 void departDanseBleu(){
   //Départ
   tourne (45, 1);
-  delay(50);
+  delay(300);
  
   avance (30);
-  delay(50);
+  delay(150);
  
   tourne (90, 0);
-  delay(50);
+  delay(150);
   
   avance (30);
-  delay(50);
+  delay(150);
  
   tourne (90, 0);
-  delay(50);
+  delay(150);
   
   avance (30);
-  delay(50);
+  delay(150);
   
   tourne (90, 0);
-  delay(50);
+  delay(150);
 
   avance (30);
   
-  delay(200);
+  delay(150);
   //fin 
 
   // Retour sur la ligne 
@@ -62,29 +69,29 @@ void departQuilleRose()
 
 //fonction de départ pour lorsqu'il y a le carton jaune (contourner mur)
 void departMurJaune() {
-    avance(100);
-    delay(50);
+    avance(10);
+    delay(150);
 
-    tourne(300, true);   // droite = true ?
-    delay(50);
+    tourne(90, true);   // droite = true ?
+    delay(150);
 
-    avance(250);
-    delay(50);
+    avance(45);
+    delay(150);
 
-    tourne(300, false);  // gauche
-    delay(50);
+    tourne(90, false);  // gauche
+    delay(150);
 
-    avance(100);
-    delay(50);
+    avance(40);
+    delay(150);
 
-    tourne(300, false);  // gauche
-    delay(50);
+    tourne(90, false);  // gauche
+    delay(150);
 
-    avance(250);
-    delay(50);
+    avance(45);
+    delay(150);
 
-    tourne(300, true);   // droite
-    delay(50);
+    tourne(90, true);   // droite
+    delay(150);
 }
 
 
