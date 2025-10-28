@@ -52,7 +52,7 @@ int angleToTicks(float angle) {
 // ====================================================================
 // AVANCER D’UNE DISTANCE DONNÉE (cm)
 // ====================================================================
-void avance(float distanceCm) {
+void avance(float distanceCm, int direction = 1) {
     ENCODER_Reset(MOTEUR_GAUCHE);
     ENCODER_Reset(MOTEUR_DROITE);
 
@@ -63,8 +63,8 @@ void avance(float distanceCm) {
     lastTime = millis();
     float distanceM = distanceCm / 100.0 * 2.067;
 
-    Vt0 = vitesseAvance;
-    Vt1 = vitesseAvance;
+    Vt0 = vitesseAvance * direction;
+    Vt1 = vitesseAvance * direction;
 
     while (true) {
         unsigned long now = millis();
@@ -92,8 +92,8 @@ void avance(float distanceCm) {
 
             float distG = pulse0 * distanceParPulse;
             float distD = pulse1 * distanceParPulse;
-            if ((distG + distD) / 2.0 >= distanceM) break;
-        }
+            float moyenne = ((distG + distD)/2.0);
+            if ((direction == 1 && moyenne >= distanceM) || (direction == -1 && moyenne <= -distanceM)) break;        }
     }
 
     MOTOR_SetSpeed(MOTEUR_GAUCHE, 0);
@@ -220,7 +220,7 @@ void GAUCHE_360_scan(void) // on scan ou est la quille
     MOTOR_SetSpeed(1, V);
        
     
-    if (ROBUS_ReadIR(0) >= 268) //  A CALIBRER detecte qqch stop lorsque le capteur donne une valeur plus haute que 0.6V !!conversion volt en bits maybe!!
+    if (ROBUS_ReadIR(0) > 600) //  A CALIBRER detecte qqch stop lorsque le capteur donne une valeur plus haute que 0.6V !!conversion volt en bits maybe!!
     {
       MOTOR_SetSpeed(0, 0.0);
       MOTOR_SetSpeed(1, 0.0);
@@ -304,7 +304,7 @@ void Leave_the_quille(void)
     float angle_actuel = (Q + K) / 2.0; 
     if (angle_actuel >= 0 && angle_actuel <= PULSE_180)  
     {
-        TournerGauche90_PROVISOIRE(); 
+        TournerGauche90_PROVISOIRE();
     }
     
     else
@@ -321,7 +321,7 @@ void BACK_ON_TRACK (void)
     if (((K+Q)/2) < PULSE_180)  // gauche du cercle trigo -> virage vers la gauche pour continuer dans le bon sens
 
         {
-            TournerGauche90_PROVISOIRE(); 
+            TournerGauche90_PROVISOIRE();
         }
 
     if (((K+Q)/2) > PULSE_180) // droite du cercle trigo -> virage vers la droite pour continuer dans le bon sens
@@ -378,3 +378,13 @@ void quille(void)
 
   
 
+
+void ajusteRotation(int angleCible, int tolerance){
+    // Convertir les angles en pulses de roue
+
+    // Calcul du nombre de pulses nécessaires pour faire un 360
+
+    float pulses360 = ((20/2)*PI);
+    int pulsesTarget = (pulses360 * angleCible) / 360;  //Voici le nombre de pulses nécessaires pour l'angle cible
+    
+}
