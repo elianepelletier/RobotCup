@@ -6,6 +6,6 @@
 #include <Arduino.h>
 
 int suiveurligne();
-String detectColor(uint16_t r,uint16_t g,uint16_t b,uint16_t c);
+String detectColor(bool afficher = false);
 
 #endif
