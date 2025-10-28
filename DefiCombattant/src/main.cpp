@@ -4,7 +4,7 @@
 
 void departDanseBleu();
 void departMurJaune();
-
+void departQuilleRose();
 void setup() {
   //initialize board
   BoardInit();
@@ -17,10 +17,12 @@ void loop()
   //   tourne (45, 0);
   //   delay(300);
   // }
-  departMurJaune();
+ 
+  //departMurJaune();
+  //delay(5000);
+  //departDanseBleu();
   delay(5000);
-  departDanseBleu();
-  delay(5000);
+  departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
   //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
@@ -64,6 +66,8 @@ void departDanseBleu(){
 //fonction de départ lorsqu'il y a le carton rose (renverser la quille)
 void departQuilleRose()
 {
+  ENCODER_Reset(1);
+  ENCODER_Reset(0);
   quille();
 }
 
