@@ -11,30 +11,32 @@
 #define PIN_VERT 42
 #define PIN_BLEUE 43
 int Etat;
+int bumperArr;
 
 void departDanseBleu();
 void departMurJaune();
 void departQuilleRose();
+void departRetrouverLigne();
 void allumeDel(int pin);
 void setup() {
   //initialize board
   Serial.begin(9600);
   BoardInit();
   CapteurInit();
-  if (CapteurInit()) {
-    Serial.println("Capteur détecté !");
-    while(1);
-  }
-  else Serial.println("Capteur non détecté. Vérifie le câblage SDA/SCL.");
+  
 }
 
 void loop()
 {
 
-  //departMurJaune();
-  //delay(5000);
-  //departDanseBleu();
-  //delay(5000);
+  departMurJaune();
+  delay(5000);
+  departDanseBleu();
+  delay(5000);
+  departQuilleRose();
+  delay(5000);
+  departRetrouverLigne();
+  delay(5000);
   //String couleur = detectColorHSV(true);
   //Etat = detecteLigne();
   //Suislaligne(Etat);
