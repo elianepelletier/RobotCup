@@ -1,13 +1,23 @@
 #include <Arduino.h>
 #include <LibRobus.h>
 #include <libRobot.h>
+#include <Wire.h>
+#include <Adafruit_TCS34725.h>
+#include <Capteur.h>
+#include <SuiveurDeLigne.h>
 
 void departDanseBleu();
 void departMurJaune();
-
+void departQuilleRose();
 void setup() {
   //initialize board
   BoardInit();
+  CapteurInit();
+  if (CapteurInit()) {
+    Serial.println("Capteur détecté !");
+    while(1);
+  }
+  else Serial.println("Capteur non détecté. Vérifie le câblage SDA/SCL.");
 }
 
 void loop()
@@ -17,10 +27,14 @@ void loop()
   //   tourne (45, 0);
   //   delay(300);
   // }
-  departMurJaune();
-  delay(5000);
-  departDanseBleu();
-  delay(5000);
+ 
+  //departMurJaune();
+  //delay(5000);
+  //departDanseBleu();
+  //delay(5000);
+  String couleur = detectColorHSV(true);
+  delay(500);
+  //departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
   //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
@@ -64,6 +78,8 @@ void departDanseBleu(){
 //fonction de départ lorsqu'il y a le carton rose (renverser la quille)
 void departQuilleRose()
 {
+  ENCODER_Reset(1);
+  ENCODER_Reset(0);
   quille();
 }
 
@@ -216,4 +232,27 @@ void departRetrouverLigne(){
   else{
     //Essayer de chercher et trouver la ligne
   }
+}
+
+void readcapteurSLL(){
+  // Lire l'état des capteurs
+  int test = suiveurligne();
+
+  // Affichage des informations
+  Serial.print("Etat du suiveur de ligne : ");
+  Serial.println(test);
+
+  // Optionnel : détail des capteurs
+  Serial.print("Capteur Gauche: ");
+  Serial.print(digitalRead(39));
+  Serial.print("  Milieu: ");
+  Serial.print(digitalRead(40));
+  Serial.print("  Droite: ");
+  Serial.println(digitalRead(41));
+
+  /*// Ajustement moteur (si tu veux tester le suivi en même temps)
+  Etat = etat;       // mettre à jour la variable globale
+  Suislaligne();     // ajuste les moteurs selon l'état*/
+
+  delay(500); // un petit délai pour lecture lisible
 }
