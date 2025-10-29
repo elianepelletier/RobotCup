@@ -39,7 +39,7 @@ void rgbToHsv(int r, int g, int b, float *h, float *s, float *v) {
 }
 
 // Détection de la couleur dominante
-/*String detectColor(bool afficher) {
+String detectColor(bool afficher) {
     uint16_t r, g, b, c;
     tcs.getRawData(&r, &g, &b, &c);
     
@@ -75,9 +75,9 @@ void rgbToHsv(int r, int g, int b, float *h, float *s, float *v) {
     if ((h >= 300 || h <= 350) && s > 0.2) return "ROSE";        // 300°–350° ou proche de 0°
     
     return "Inconnu";
-}*/
+}
 
-String detectColorHSV() {
+String detectColorHSV(bool afficher) {
     uint16_t r, g, b, c;
     tcs.getRawData(&r, &g, &b, &c);
 
