@@ -25,37 +25,37 @@ void delBleue()
 
 void delRBrasDevant()
 {
-    bougerBrasDroit(angleBrasDevant);
-    bougerBrasGauche(angleBrasDevant);
+    bougerBrasDroit(angleBrasDevantD);
+    bougerBrasGauche(angleBrasDevantG);
     allumeFermeAvecDelay(1500,rougePin);
     
 }
 
 void delJBrasHaut()
 {
-    bougerBrasDroit(angleBrasHaut);
-    bougerBrasGauche(angleBrasHaut);
+    bougerBrasDroit(angleBrasHautD);
+    bougerBrasGauche(angleBrasHautG);
     allumeFermeAvecDelay(1500,jaunePin);
 }
 
 void delVBrasDevant()
 {
-    bougerBrasDroit(angleBrasDevant);
-    bougerBrasGauche(angleBrasDevant);
+    bougerBrasDroit(angleBrasDevantD);
+    bougerBrasGauche(angleBrasDevantG);
     allumeFermeAvecDelay(1500,vertPin);
 }
 
 void delBBrasBas()
 {
-    bougerBrasDroit(angleBrasBas);
-    bougerBrasGauche(angleBrasBas);
+    bougerBrasDroit(angleBrasBasD);
+    bougerBrasGauche(angleBrasBasG);
     allumeFermeAvecDelay(1500,bleuPin);
 }
 
 void _360HoraireDelAleatoiresBrasHaut()
 {
-    bougerBrasDroit(angleBrasHaut);
-    bougerBrasGauche(angleBrasHaut);
+    bougerBrasDroit(angleBrasHautD);
+    bougerBrasGauche(angleBrasHautG);
     tourne(360, false);
     allumeDELaleatoire(500);
     allumeDELaleatoire(500);
@@ -63,8 +63,8 @@ void _360HoraireDelAleatoiresBrasHaut()
 
 void delREtJAlternBrasBas()
 {
-    bougerBrasDroit(angleBrasBas);
-    bougerBrasGauche(angleBrasBas);
+    bougerBrasDroit(angleBrasBasD);
+    bougerBrasGauche(angleBrasBasG);
     allumeFermeAvecDelay(600,rougePin);
     allumeFermeAvecDelay(600,jaunePin);
     allumeFermeAvecDelay(600,rougePin);
@@ -89,8 +89,8 @@ void delBEtRAltern()
 
 void _360AntiHoraireDelAleatoiresBrasAvant()
 {
-    bougerBrasDroit(angleBrasDevant);
-    bougerBrasGauche(angleBrasDevant);
+    bougerBrasDroit(angleBrasDevantD);
+    bougerBrasGauche(angleBrasDevantG);
     tourne(360, true);
     allumeDELaleatoire(500);
     allumeDELaleatoire(500);

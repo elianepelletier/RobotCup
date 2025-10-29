@@ -19,9 +19,23 @@
 //void faire1080()
 //{
 //}
+void position1BrasHautDelAleatoiresFin()
+{
+}
 
+void position1BrasHaut360()
+{
+}
+
+void position3BrasDevant360()
+{
+}
+
+void faire1080()
+{
+}
 //PLAN MACHIAVÉLIQUE DU DR.DOOFENSCHMIRTZ
-void position0()
+void protocolegocrazy()
 {
     tourne(7200, true);
 }

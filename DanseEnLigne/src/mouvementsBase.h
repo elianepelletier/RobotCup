@@ -8,9 +8,12 @@ extern int jaunePin;
 extern int vertPin; 
 extern int bleuPin; 
 
-extern int angleBrasBas;
-extern int angleBrasHaut;
-extern int angleBrasDevant;
+extern int angleBrasBasD;
+extern int angleBrasHautD;
+extern int angleBrasDevantD;
+extern int angleBrasBasG;
+extern int angleBrasHautG;
+extern int angleBrasDevantG;
 
 extern int hypothenuse;
 

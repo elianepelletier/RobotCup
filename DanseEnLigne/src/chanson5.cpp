@@ -5,60 +5,60 @@
 
 void position1DelRBrasDevant()
 {
-    bougerBrasDroit(angleBrasDevant);
-    bougerBrasGauche(angleBrasDevant);
+    bougerBrasDroit(angleBrasDevantD);
+    bougerBrasGauche(angleBrasDevantD);
     avance(20.0);
     allumeFermeAvecDelay(1500,rougePin);
 }
 
 void position2DelJBrasHaut()
 {
-    bougerBrasDroit(angleBrasHaut);
-    bougerBrasGauche(angleBrasHaut);
+    bougerBrasDroit(angleBrasHautD);
+    bougerBrasGauche(angleBrasHautD);
     position2();
     allumeFermeAvecDelay(1500,jaunePin);
 }
 
 void position3DelVBrasBas()
 {
-    bougerBrasDroit(angleBrasBas);
-    bougerBrasGauche(angleBrasBas);
+    bougerBrasDroit(angleBrasBasD);
+    bougerBrasGauche(angleBrasBasD);
     position3();
     allumeFermeAvecDelay(1500,vertPin);
 }
 
 void position4DelBBrasDevant()
 {
-    bougerBrasDroit(angleBrasDevant);
-    bougerBrasGauche(angleBrasDevant);
+    bougerBrasDroit(angleBrasDevantD);
+    bougerBrasGauche(angleBrasDevantD);
     position4();
     allumeFermeAvecDelay(1500,bleuPin);
 }
 
 void position1BrasHaut()
 {
-    bougerBrasDroit(angleBrasHaut);
-    bougerBrasGauche(angleBrasHaut);
+    bougerBrasDroit(angleBrasHautD);
+    bougerBrasGauche(angleBrasHautG);
     position1();
 }
 
 void position2BrasGHautBrasDDevant()
 {
-    bougerBrasDroit(angleBrasDevant);
-    bougerBrasGauche(angleBrasHaut);
+    bougerBrasDroit(angleBrasDevantD);
+    bougerBrasGauche(angleBrasHautG);
     position2();
 }
 
 void position3BrasDevant()
 {
-    bougerBrasDroit(angleBrasDevant);
-    bougerBrasGauche(angleBrasDevant);
+    bougerBrasDroit(angleBrasDevantD);
+    bougerBrasGauche(angleBrasDevantG);
     position3();
 }
 
 void position4BrasGDevantBrasDHaut()
 {
-    bougerBrasDroit(angleBrasHaut);
-    bougerBrasGauche(angleBrasDevant);
+    bougerBrasDroit(angleBrasHautD);
+    bougerBrasGauche(angleBrasDevantG);
     position4();
 }

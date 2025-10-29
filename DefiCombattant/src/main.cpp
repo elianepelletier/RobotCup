@@ -17,6 +17,7 @@ void departMurJaune();
 void departQuilleRose();
 void setup() {
   //initialize board
+  Serial.begin(9600);
   BoardInit();
   CapteurInit();
   if (CapteurInit()) {
@@ -38,12 +39,13 @@ void loop()
   //delay(5000);
   //departDanseBleu();
   //delay(5000);
-  String couleur = detectColorHSV(true);
-  delay(500);
+  //String couleur = detectColorHSV(true);
+  //delay(500);
   //departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
   //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
+  departDetecteCouleurLoop();
   
 }
 

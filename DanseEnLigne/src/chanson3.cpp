@@ -6,8 +6,8 @@
 //à partir de pos 0
 void position1BrasBas()
 {
-    bougerBrasDroit(angleBrasBas);
-    bougerBrasGauche(angleBrasBas);
+    bougerBrasDroit(angleBrasBasD);
+    bougerBrasGauche(angleBrasBasG);
     avance(20.0);
 }
 

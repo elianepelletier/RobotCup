@@ -5,25 +5,25 @@
 
 void brasGHaut()
 {
-    bougerBrasGauche(angleBrasHaut);   //va appeler la fonction (dans le fichier mouvementsDeBase.c)
+    bougerBrasGauche(angleBrasHautG);   //va appeler la fonction (dans le fichier mouvementsDeBase.c)
     delay(15);             //qui fait bouger le bras gauche en haut (où jusqu'à un certain angle)(delay à définir)                          
 }
 
 void brasDHaut()
 {
-    bougerBrasDroit(angleBrasHaut);
+    bougerBrasDroit(angleBrasHautD);
     delay(15);
 }
 
 void brasGBas()
 {
-    bougerBrasGauche(angleBrasBas);
+    bougerBrasGauche(angleBrasBasG);
     delay(15);
 }
 
 void brasDBas()
 {
-    bougerBrasDroit(angleBrasBas);
+    bougerBrasDroit(angleBrasBasD);
     delay(15);
 }
 

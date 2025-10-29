@@ -17,9 +17,12 @@ int jaunePin = 41;
 int vertPin = 42;
 int bleuPin = 43;
 
-int angleBrasBas = 180;
-int angleBrasHaut = 0;
-int angleBrasDevant = 90;
+int angleBrasBasD = 170;
+int angleBrasHautD = -10;
+int angleBrasDevantD = 80;
+int angleBrasBasG = 170;
+int angleBrasHautG = 0;
+int angleBrasDevantG = 80;
 
 int hypothenuse = 26.5;
 
@@ -28,6 +31,8 @@ void initBras() {
     //brasDroit.attach(7);    // Pin du bras droit (À DÉFINIR)
     SERVO_Enable(RIGHT);
     SERVO_Enable(LEFT);
+    bougerBrasDroit(angleBrasDevantD);
+    bougerBrasGauche(angleBrasDevantG);
 }
 
 void initDel(){
