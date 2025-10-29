@@ -12,6 +12,8 @@ extern int angleBrasBas;
 extern int angleBrasHaut;
 extern int angleBrasDevant;
 
+extern int hypothenuse;
+
 void initBras();
 void initDel();
 void bougerBrasGauche(int angle);

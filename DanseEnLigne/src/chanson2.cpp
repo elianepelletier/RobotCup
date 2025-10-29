@@ -65,26 +65,26 @@ void delREtJAlternBrasBas()
 {
     bougerBrasDroit(angleBrasBas);
     bougerBrasGauche(angleBrasBas);
-    allumeFermeAvecDelay(800,rougePin);
-    allumeFermeAvecDelay(800,jaunePin);
-    allumeFermeAvecDelay(800,rougePin);
-    allumeFermeAvecDelay(800,jaunePin);
+    allumeFermeAvecDelay(600,rougePin);
+    allumeFermeAvecDelay(600,jaunePin);
+    allumeFermeAvecDelay(600,rougePin);
+    allumeFermeAvecDelay(600,jaunePin);
 }
 
 void delJEtVAltern()
 {
-    allumeFermeAvecDelay(800,jaunePin);
-    allumeFermeAvecDelay(800,vertPin);
-    allumeFermeAvecDelay(800,jaunePin);
-    allumeFermeAvecDelay(800,vertPin);
+    allumeFermeAvecDelay(600,jaunePin);
+    allumeFermeAvecDelay(600,vertPin);
+    allumeFermeAvecDelay(600,jaunePin);
+    allumeFermeAvecDelay(600,vertPin);
 }
 
 void delBEtRAltern()
 {
-    allumeFermeAvecDelay(800,bleuPin);
-    allumeFermeAvecDelay(800,rougePin);
-    allumeFermeAvecDelay(800,bleuPin);
-    allumeFermeAvecDelay(800,rougePin);
+    allumeFermeAvecDelay(600,bleuPin);
+    allumeFermeAvecDelay(600,rougePin);
+    allumeFermeAvecDelay(600,bleuPin);
+    allumeFermeAvecDelay(600,rougePin);
 }
 
 void _360AntiHoraireDelAleatoiresBrasAvant()
