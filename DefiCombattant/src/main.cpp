@@ -6,11 +6,16 @@
 #include <Capteur.h>
 #include <SuiveurDeLigne.h>
 
+#define PIN_ROUGE 40
+#define PIN_JAUNE 41
+#define PIN_VERT 42
+#define PIN_BLEUE 43
 int Etat;
 
 void departDanseBleu();
 void departMurJaune();
 void departQuilleRose();
+void allumeDel(int pin);
 void setup() {
   //initialize board
   Serial.begin(9600);
@@ -25,21 +30,17 @@ void setup() {
 
 void loop()
 {
-  // for (int i = 0; i < 8; i++)
-  // {
-  //   tourne (45, 0);
-  //   delay(300);
-  // }
- 
+
   //departMurJaune();
   //delay(5000);
   //departDanseBleu();
   //delay(5000);
   //String couleur = detectColorHSV(true);
-  Etat = detecteLigne();
-  Suislaligne(Etat);
+  //Etat = detecteLigne();
+  //Suislaligne(Etat);
  
   delay(2000);
+
   //departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
@@ -49,6 +50,7 @@ void loop()
 
 //fonction de départ lorsqu'il y a le carton bleu (petite danse)
 void departDanseBleu(){
+  allumeDel(PIN_BLEUE);
   //Départ
   tourne (45, 1);
   delay(300);
@@ -84,6 +86,7 @@ void departDanseBleu(){
 //fonction de départ lorsqu'il y a le carton rose (renverser la quille)
 void departQuilleRose()
 {
+  allumeDel(PIN_ROUGE);
   ENCODER_Reset(1);
   ENCODER_Reset(0);
   quille();
@@ -91,6 +94,7 @@ void departQuilleRose()
 
 //fonction de départ pour lorsqu'il y a le carton jaune (contourner mur)
 void departMurJaune() {
+    allumeDel(PIN_JAUNE);
     avance(10);
     delay(150);
 
@@ -119,6 +123,7 @@ void departMurJaune() {
 
 //fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
 void departRetrouverLigne(){
+  allumeDel(PIN_VERT);
 
   int etat = 0; //Temporaire, Remplacer par les états de la fonction à Xavier
 //etat = Lire etat de la fonction a xavier*********************************************************
@@ -261,4 +266,10 @@ void readcapteurSLL(){
   Suislaligne();     // ajuste les moteurs selon l'état*/
 
   delay(500); // un petit délai pour lecture lisible
+}
+
+void allumeDel(int pin){
+  digitalWrite(pin, HIGH);
+  delay(2000);
+  digitalWrite(pin, LOW);
 }
