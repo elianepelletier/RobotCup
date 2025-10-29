@@ -39,7 +39,7 @@ void rgbToHsv(int r, int g, int b, float *h, float *s, float *v) {
 }
 
 // Détection de la couleur dominante
-String detectColor(bool afficher) {
+/*String detectColor(bool afficher) {
     uint16_t r, g, b, c;
     tcs.getRawData(&r, &g, &b, &c);
     
@@ -75,6 +75,41 @@ String detectColor(bool afficher) {
     if ((h >= 300 || h <= 350) && s > 0.2) return "ROSE";        // 300°–350° ou proche de 0°
     
     return "Inconnu";
+}*/
+
+String detectColorHSV() {
+    uint16_t r, g, b, c;
+    tcs.getRawData(&r, &g, &b, &c);
+
+    if (c < 500) {
+        Serial.println("Trop sombre");
+        return "Aucune couleur";
+    }
+
+    // Normalisation RGB
+    float redNorm = (float)r / c;
+    float greenNorm = (float)g / c;
+    float blueNorm = (float)b / c;
+
+    // Mise à l’échelle pour conversion HSV
+    float R = redNorm * 255.0f;
+    float G = greenNorm * 255.0f;
+    float B = blueNorm * 255.0f;
+
+    // Conversion en HSV
+    float h, s, v;
+    rgbToHsv(R, G, B, &h, &s, &v);
+
+    // Affiche seulement HSV
+    Serial.print("Hue: ");
+    Serial.print(h, 1);
+    Serial.print("  Sat: ");
+    Serial.print(s * 100.0f, 1);
+    Serial.print("%  Val: ");
+    Serial.print(v * 100.0f, 1);
+    Serial.println("%");
+
+    return "";
 }
 
 //etat du capteur de suiveur de ligne
@@ -82,6 +117,11 @@ int suiveurligne() {
     bool Etatgauche = digitalRead(47);
     bool Etatmilieu = digitalRead(48);
     bool Etatdroite = digitalRead(49);
+
+    Serial.print("G: "); Serial.print(Etatgauche);
+    Serial.print(" M: "); Serial.print(Etatmilieu);
+    Serial.print(" D: "); Serial.println(Etatdroite);
+
 
     if ( Etatmilieu == 0) {
         if (Etatdroite == 1 && Etatgauche == 1) {
@@ -125,9 +165,9 @@ bool CapteurInit() {
   Serial.begin(9600);
   Serial.println("Initialisation du capteur TCS34725...");
   
-  pinMode(39, INPUT);
-  pinMode(40, INPUT);
-  pinMode(41, INPUT);
+  pinMode(47, INPUT);
+  pinMode(48, INPUT);
+  pinMode(49, INPUT);
 
   if (tcs.begin()) return true;
     /*Serial.println("Capteur détecté !");*/

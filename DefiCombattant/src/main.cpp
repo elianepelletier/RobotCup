@@ -32,7 +32,8 @@ void loop()
   //delay(5000);
   //departDanseBleu();
   //delay(5000);
-  void readcapteurSLL();
+  String couleur = detectColorHSV(true);
+  delay(500);
   //departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
