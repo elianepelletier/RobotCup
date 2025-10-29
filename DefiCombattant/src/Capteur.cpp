@@ -4,6 +4,7 @@
 #include <Adafruit_TCS34725.h>
 #include "Capteur.h"
 
+
 // Capteur avec 700ms d’intégration et gain 4x
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(
   TCS34725_INTEGRATIONTIME_700MS,
@@ -242,7 +243,6 @@ void departDetecteCouleurLoop(){
     }
   }
 }
-
 
 /*
 void loop() {
