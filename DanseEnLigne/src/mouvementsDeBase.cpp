@@ -21,6 +21,8 @@ int angleBrasBas = 180;
 int angleBrasHaut = 0;
 int angleBrasDevant = 90;
 
+int hypothenuse = 26.5;
+
 void initBras() {
     //brasGauche.attach(4);   // Pin du bras gauche (À DÉFINIR)
     //brasDroit.attach(7);    // Pin du bras droit (À DÉFINIR)

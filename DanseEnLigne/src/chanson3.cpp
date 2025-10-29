@@ -15,7 +15,7 @@ void position1BrasBas()
 void position2()
 {
     tourne(45, false);
-    avance(28.28, -1); 
+    avance(hypothenuse, -1); 
     tourne(45, true);
 }
 
@@ -23,7 +23,7 @@ void position2()
 void position3()
 {
     tourne(45, true);
-    avance(28.28, -1);
+    avance(hypothenuse, -1);
     tourne(45, false);
 }
 
@@ -31,7 +31,7 @@ void position3()
 void position4()
 {
     tourne(45, false);
-    avance(28.28);
+    avance(hypothenuse);
     tourne(45, true);
 }
 
@@ -39,6 +39,6 @@ void position4()
 void position1()
 {
     tourne(45, true);
-    avance(28.28);
+    avance(hypothenuse);
     tourne(45, false);
 }
