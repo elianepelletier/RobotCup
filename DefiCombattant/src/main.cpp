@@ -6,11 +6,14 @@
 #include <Capteur.h>
 #include <SuiveurDeLigne.h>
 
+int Etat;
+
 void departDanseBleu();
 void departMurJaune();
 void departQuilleRose();
 void setup() {
   //initialize board
+  Serial.begin(9600);
   BoardInit();
   CapteurInit();
   if (CapteurInit()) {
@@ -32,8 +35,11 @@ void loop()
   //delay(5000);
   //departDanseBleu();
   //delay(5000);
-  String couleur = detectColorHSV(true);
-  delay(500);
+  //String couleur = detectColorHSV(true);
+  Etat = detecteLigne();
+  Suislaligne(Etat);
+ 
+  delay(2000);
   //departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)

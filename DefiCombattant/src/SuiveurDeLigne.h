@@ -5,6 +5,6 @@
 
 #include <Arduino.h>
 
-void Suislaligne();
+void Suislaligne(int Etat);
 
 #endif
