@@ -115,52 +115,44 @@ uint16_t r, g, b, c;
 //}
 
 //etat du capteur de suiveur de ligne
-int suiveurligne() {
-    bool Etatgauche = digitalRead(47);
-    bool Etatmilieu = digitalRead(48);
-    bool Etatdroite = digitalRead(49);
+int detecteLigne() {
+    // --- Lecture analogique des capteurs ---
+    int gauche = analogRead(A2);
+    int milieu = analogRead(A3);
+    int droite = analogRead(A4);
 
-    Serial.print("G: "); Serial.print(Etatgauche);
-    Serial.print(" M: "); Serial.print(Etatmilieu);
-    Serial.print(" D: "); Serial.println(Etatdroite);
+    // --- Seuils de détection (à ajuster selon ton capteur et ton sol) ---
+    int seuilNoir = 100;   // Valeur à ajuster : plus bas = plus sensible au noir
 
+    // --- Détermination des états logiques (1 = blanc, 0 = ligne noire) ---
+    bool Etatgauche = (gauche > seuilNoir);
+    bool Etatmilieu = (milieu > seuilNoir);
+    bool Etatdroite = (droite > seuilNoir);
 
-    if ( Etatmilieu == 0) {
-        if (Etatdroite == 1 && Etatgauche == 1) {
-        return 1;
-        }
+    // --- Debug : affichage des valeurs ---
+    Serial.print("G: "); Serial.print(gauche);
+    Serial.print(" ("); Serial.print(Etatgauche); Serial.print(") ");
+    Serial.print("M: "); Serial.print(milieu);
+    Serial.print(" ("); Serial.print(Etatmilieu); Serial.print(") ");
+    Serial.print("D: "); Serial.print(droite);
+    Serial.print(" ("); Serial.println(Etatdroite); Serial.print(") ");
 
-        if (Etatdroite == 0 && Etatgauche == 1) {
-        return 5;
-        }
-        
-        if (Etatdroite == 1 && Etatgauche == 0) {
-        return 4;
-        }
-
-        if (Etatdroite == 0 && Etatgauche == 0) {
-        return 7;
-        }
-
+    // --- Logique de détection ---
+    if (Etatmilieu == 0) {
+        if (Etatdroite == 1 && Etatgauche == 1) return 1;
+        if (Etatdroite == 0 && Etatgauche == 1) return 5;
+        if (Etatdroite == 1 && Etatgauche == 0) return 4;
+        if (Etatdroite == 0 && Etatgauche == 0) return 7;
     }
 
-    if ( Etatmilieu == 1) {
-        if (Etatdroite == 1 && Etatgauche == 1) {
-        return 0;
-        }
-        if (Etatdroite == 0 && Etatgauche == 1) {
-        return 3;
-        }
-        if (Etatdroite == 1 && Etatgauche == 0) {
-        return 2;
-        }
-        if (Etatdroite == 0 && Etatgauche == 0) {
-        return 6;
-        }
-
+    if (Etatmilieu == 1) {
+        if (Etatdroite == 1 && Etatgauche == 1) return 0;
+        if (Etatdroite == 0 && Etatgauche == 1) return 3;
+        if (Etatdroite == 1 && Etatgauche == 0) return 2;
+        if (Etatdroite == 0 && Etatgauche == 0) return 6;
     }
 
-  return -1;
+    return -1; // aucun cas détecté
 }
 
 bool CapteurInit() {

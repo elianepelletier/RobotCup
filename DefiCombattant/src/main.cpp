@@ -6,11 +6,7 @@
 #include <Capteur.h>
 #include <SuiveurDeLigne.h>
 
-#define PIN_ROUGE 40;
-#define PIN_JAUNE 41;
-#define PIN_VERT 42;
-#define PIN_BLEU 43;
-
+int Etat;
 
 void departDanseBleu();
 void departMurJaune();
@@ -40,7 +36,10 @@ void loop()
   //departDanseBleu();
   //delay(5000);
   //String couleur = detectColorHSV(true);
-  //delay(500);
+  Etat = detecteLigne();
+  Suislaligne(Etat);
+ 
+  delay(2000);
   //departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
@@ -120,7 +119,7 @@ void departMurJaune() {
 
 
 //fonction de départ pour quand il n'y a plus de ligne (pas de couleur détectée)
-void departRetrouverLigneVert(){
+void departRetrouverLigne(){
 
   int etat = 0; //Temporaire, Remplacer par les états de la fonction à Xavier
 //etat = Lire etat de la fonction a xavier*********************************************************
@@ -263,10 +262,4 @@ void readcapteurSLL(){
   Suislaligne();     // ajuste les moteurs selon l'état*/
 
   delay(500); // un petit délai pour lecture lisible
-}
-
-void allumeDel(int pin){
-  digitalWrite(pin, HIGH);
-  delay(2000);
-  digitalWrite(pin, LOW);
 }

@@ -8,6 +8,7 @@
 int suiveurligne();
 //String detectColorHSV(bool afficher = true);
 bool CapteurInit();
+int detecteLigne();
 void departDetecteCouleurLoop();
 int detectcouleur();
 void getrgb();

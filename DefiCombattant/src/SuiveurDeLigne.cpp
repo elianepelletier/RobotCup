@@ -6,12 +6,12 @@
 #include <Capteur.h>
 #include "SuiveurDeLigne.h"
 
-int Etat;
 
-void Suislaligne() {
+
+void Suislaligne(int Etat) {
     float vitesse = 0.5;
     float pajust = 0.8;
-    float gajust =0.5;
+    float gajust = 0.5;
     if (Etat == 1) {//continue tout droit
         MOTOR_SetSpeed(MOTEUR_GAUCHE, vitesse);
         MOTOR_SetSpeed(MOTEUR_DROITE, vitesse);
@@ -38,7 +38,7 @@ void Suislaligne() {
     }
 }
 
-void Loop(){
-    Etat = suiveurligne();
-    Suislaligne();
-}
+// void Loop(){
+//     Etat = suiveurligne();
+//     Suislaligne();
+// }
