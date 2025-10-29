@@ -148,7 +148,7 @@ void tourne(int angleDeg, bool tourneGauche) {
 
             float commande0 = constrain(Vt0 + Kp * Erreur0, -1.0, 1.0);
             float commande1 = constrain(Vt1 + Kp * Erreur1, -1.0, 1.0);
-
+            
             MOTOR_SetSpeed(MOTEUR_GAUCHE, commande0);
             MOTOR_SetSpeed(MOTEUR_DROITE, commande1);
         }
