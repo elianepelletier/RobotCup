@@ -67,9 +67,13 @@ void loop()
   Serial.println(vraiSiDemarre);
   Serial.println("\n");
 
+  Serial.println(volt0);
+  Serial.println(volt1);
+  Serial.println(difference);
+
   //difference > 0.150 || 
   
-  if (bumperArr || vraiSiDemarre){
+  if (difference > 1 || bumperArr || vraiSiDemarre){
     vraiSiDemarre = true;
 
     SuivreLigneContinu();
