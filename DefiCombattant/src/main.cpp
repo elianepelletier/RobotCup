@@ -12,6 +12,9 @@
 #define PIN_BLEUE 43
 int Etat;
 int bumperArr;
+int bumperG;
+int bumperD;
+int bumperF; 
 int couleur; //Rose = 0, Vert = 1, Bleu = 2, Jaune = 3
 int valA0;
 int valA1;
@@ -59,6 +62,10 @@ void loop()
   volt0 = valA0 * (5.000 / 1023.000);
   volt1 = valA1 * (5.000 / 1023.000);
   float difference = volt1 - volt0;
+  bumperArr = ROBUS_IsBumper(3) * 1;
+  bumperF = ROBUS_IsBumper(2) * 2;
+  bumperG = ROBUS_IsBumper(0) * 3;
+  bumperD = ROBUS_IsBumper(1) * 4;
 
   bumperArr = ROBUS_IsBumper(3);
 
@@ -73,37 +80,44 @@ void loop()
 
   //difference > 0.150 || 
   
-  if (difference > 1 || bumperArr || vraiSiDemarre){
+  if (difference > 1 || vraiSiDemarre){
     vraiSiDemarre = true;
 
+
+
+    // --- Ajout demandé ---
     SuivreLigneContinu();
-   delay(50);
-   couleur = detectcouleur();
+    delay(50);
+    // ---------------------
 
-   switch (couleur)
-     {
-     case 0: //rouge
-       departQuilleRose();
-     break;
-      
-     case 1: //vert
-       departRetrouverLigne();
-       break;
+    couleur = bumperArr + bumperF + bumperD + bumperG;
 
-     case 2: //bleu
-       departDanseBleu();
-       break;
-      
-   case 3: //jaune
-       departMurJaune();
-       break;
-      
-     default:
-       break;
+    switch (couleur)
+    {
+      case 1: // rouge
+        departDanseBleu();
+        
+        break;
+
+      case 2: // vert
+        departMurJaune();
+        
+        break;
+
+      case 3: // bleu
+        departQuilleRose();
+        break;
+
+      case 4: // jaune
+        departRetrouverLigne();
+        break;
+
+      default:
+        break;
      }
-
    } 
 }
+
 
 //fonction de départ lorsqu'il y a le carton bleu (petite danse)
 void departDanseBleu(){
