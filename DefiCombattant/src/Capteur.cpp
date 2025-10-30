@@ -57,7 +57,7 @@ int detectcouleur() {
       Serial.println("Vert");
       return 1; // Vert
     } 
-    else if (bn > 78.5 && rn < 79.75 && gn < 97) {//(rn >= 77.0 && rn <= 77.5 && gn >= 96.9 && gn <= 97.1 && bn >= 78.5 && bn <= 81.1)
+    else if (rn >= 77.0 && rn <= 77.5 && gn >= 96.9 && gn <= 97.1 && bn >= 78.5 && bn <= 81.1) {//(bn > 78.5 && rn < 79.75 && gn < 97)(rn >= 77.0 && rn <= 77.5 && gn >= 96.9 && gn <= 97.1 && bn >= 78.5 && bn <= 81.1)
       Serial.println("Bleu");
       return 2; // Bleu
     } 
