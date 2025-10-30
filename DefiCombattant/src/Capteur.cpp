@@ -220,9 +220,9 @@ void SuivreLigneContinu()
     Serial.println(etat);
 
     // ---- CONTRÔLE DES MOTEURS ----
-    float vitesseBase = 0.15;
-    float correctionLegere = 0.03;
-    float correctionForte = 0.10;  // Correction plus agressive pour cas extrêmes
+    float vitesseBase = 0.08;
+    float correctionLegere = 0.12;
+    float correctionForte = 0.40;  // Correction plus agressive pour cas extrêmes
 
     // Démarrage ou rien détecté → avance droit
     if (etat == -1 || etat == 0 || etat == 1) {
