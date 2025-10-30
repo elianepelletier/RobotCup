@@ -182,19 +182,20 @@ void departMurJaune() {
 void departRetrouverLigne(){
   allumeDel(PIN_VERT);
 
+
   int etat = 0; //Temporaire, Remplacer par les états de la fonction à Xavier
-//etat = Lire etat de la fonction a xavier*********************************************************
+  etat = lireEtatLigne();
 
 //Suivre la ligne jusqu'à ce qu'on arrive à la ligne perpendiculaire de départ
   while (etat != 7){//etat tout allumés
     avance(1);//ou appeler la fonction suivre la ligne*********************************************
-    //etat = Lire etat de la fonction a xavier*****************************************************
+    etat = lireEtatLigne();
   }
 
   //Traverser la ligne perpendiculaire de départ
   while (etat == 7){//avance tant que les trois capteurs détectent la ligne
     avance(1);
-    //etat = Lire etat de la fonction a xavier*****************************************************
+    etat = lireEtatLigne();
   }
 
   //Ajuster la direction du robot avant d'avancer de 75cm
@@ -213,7 +214,7 @@ void departRetrouverLigne(){
       case 4://centre et gauche allumés
         while(etat != 0){
           tourne(10,1);//Tourne vers la droite jusqu'à ce que les trois capteurs s'éteignent
-          //etat = Lire etat de la fonction a xavier**************************************************
+          etat = lireEtatLigne();
         }
         break;
 
@@ -221,7 +222,7 @@ void departRetrouverLigne(){
       case 5://centre et droite allumés
         while(etat != 0){
            tourne(10,0);//Tourne vers la gauche jusqu'à ce que les trois capteurs s'éteignent
-           //etat = Lire etat de la fonction a xavier**************************************************
+           etat = lireEtatLigne();
         }
         break;
 
@@ -233,17 +234,17 @@ void departRetrouverLigne(){
         avance(1);
         break;
     }
-    //etat = appeler fonction de Xavier pour les etats**************************************************
+    etat = lireEtatLigne();
   }
 
   //Avancer longue distance sans ligne
-  avance(140);//Modifier cette valeur selon les tests
+  avance(70);//Modifier cette valeur selon les tests
   delay(50);
 
   //Retrouver la ligne perpendiculaire d'arrivée apres avoir traversé le trou
   while(etat == 0){//Tous éteintes, n'a pas encore retrouvé la ligne
     avance(1);
-    //etat = appeler fonction de Xavier pour les etats**************************************************
+    etat = lireEtatLigne();
   }
 
   //Ajuster la direction du robot avec la ligne perpendiculaire d'arrivée
@@ -262,7 +263,7 @@ void departRetrouverLigne(){
       case 4://centre et gauche allumés
         while(etat != 7){
           tourne(10,1);//Tourne vers la droite jusqu'à ce que les trois capteurs s'allument
-          //etat = appeler fonction de Xavier pour les etats**************************************************
+          etat = lireEtatLigne();
         }
         break;
 
@@ -270,7 +271,7 @@ void departRetrouverLigne(){
       case 5://centre et droite allumés
         while(etat != 7){
            tourne(10,0);//Tourne vers la gauche jusqu'à ce que les trois capteurs s'allument
-           //etat = appeler fonction de Xavier pour les etats**************************************************
+           etat = lireEtatLigne();
         }
         break;
 
@@ -283,13 +284,13 @@ void departRetrouverLigne(){
       break;
 
     }
-     //etat = appeler fonction de Xavier pour les etats****************************************************************
+     etat = lireEtatLigne();
   }
 
   //Traverser la ligne perpendiculaire d'arrivée
   while (etat == 7){
     avance(1);
-    //etat = appeler fonction de Xavier pour les etats******************************************************************
+    etat = lireEtatLigne();
   }
 
   //Suivre la ligne ou retrouver la ligne si perdue
@@ -301,6 +302,7 @@ void departRetrouverLigne(){
     //Essayer de chercher et trouver la ligne
   }
 }
+  
 
 void readcapteurSLL(){
   // Lire l'état des capteurs
