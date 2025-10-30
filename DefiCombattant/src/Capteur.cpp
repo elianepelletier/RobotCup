@@ -176,76 +176,116 @@ String detectColorHSV(bool afficher) {
     return "";
 }*/
 
-//etat du capteur de suiveur de ligne
-int detecteLigne() {
-    // --- Lecture analogique des capteurs ---
-    int gauche = analogRead(A2);
-    int milieu = analogRead(A3);
-    int droite = analogRead(A4);
+void SuivreLigneContinu()
+{
+    int g = analogRead(A2);
+    int m = analogRead(A3);
+    int d = analogRead(A4);
 
-    // --- Seuils de détection (à ajuster selon ton capteur et ton sol) ---
-    int seuilNoir = 100;   // Valeur à ajuster : plus bas = plus sensible au noir
+    // Seuils adaptés à tes mesures
+    int seuilGauche = 300;
+    int seuilMilieu = 300;
+    int seuilDroite = 500;
 
-    // --- Détermination des états logiques (1 = blanc, 0 = ligne noire) ---
-    bool Etatgauche = (gauche > seuilNoir);
-    bool Etatmilieu = (milieu > seuilNoir);
-    bool Etatdroite = (droite > seuilNoir);
+    // États logiques : 0 = noir détecté, 1 = blanc
+    bool EtatG = (g > seuilGauche);
+    bool EtatM = (m > seuilMilieu);
+    bool EtatD = (d > seuilDroite);
 
-    // --- Debug : affichage des valeurs ---
-    Serial.print("G: "); Serial.print(gauche);
-    Serial.print(" ("); Serial.print(Etatgauche); Serial.print(") ");
-    Serial.print("M: "); Serial.print(milieu);
-    Serial.print(" ("); Serial.print(Etatmilieu); Serial.print(") ");
-    Serial.print("D: "); Serial.print(droite);
-    Serial.print(" ("); Serial.println(Etatdroite); Serial.print(") ");
+    // ---- DEBUG ----
+    Serial.print("G: "); Serial.print(g); 
+    Serial.print(" ("); Serial.print(EtatG); Serial.print(") ");
+    Serial.print("M: "); Serial.print(m); 
+    Serial.print(" ("); Serial.print(EtatM); Serial.print(") ");
+    Serial.print("D: "); Serial.print(d); 
+    Serial.print(" ("); Serial.print(EtatD); Serial.print(") ");
 
-    // --- Logique de détection ---
-    if (Etatmilieu == 0) {
-        if (Etatdroite == 1 && Etatgauche == 1) return 1;
-        if (Etatdroite == 0 && Etatgauche == 1) return 5;
-        if (Etatdroite == 1 && Etatgauche == 0) return 4;
-        if (Etatdroite == 0 && Etatgauche == 0) return 7;
+    // Calcul de l'état global
+    int etat = -1;
+
+    if (EtatM == 0) {
+        if (EtatD == 1 && EtatG == 1) etat = 1;  // Milieu seulement
+        if (EtatD == 0 && EtatG == 1) etat = 5;  // Milieu + Droite
+        if (EtatD == 1 && EtatG == 0) etat = 4;  // Milieu + Gauche
+        if (EtatD == 0 && EtatG == 0) etat = 7;  // Tous sur la ligne
+    } 
+    else if (EtatM == 1) {
+        if (EtatD == 1 && EtatG == 1) etat = 0;  // Rien détecté
+        if (EtatD == 0 && EtatG == 1) etat = 3;  // Droite seulement - LÉGÈREMENT OFF
+        if (EtatD == 1 && EtatG == 0) etat = 2;  // Gauche seulement - LÉGÈREMENT OFF
+        if (EtatD == 0 && EtatG == 0) etat = 6;  // Gauche + Droite seulement
     }
 
-    if (Etatmilieu == 1) {
-        if (Etatdroite == 1 && Etatgauche == 1) return 0;
-        if (Etatdroite == 0 && Etatgauche == 1) return 3;
-        if (Etatdroite == 1 && Etatgauche == 0) return 2;
-        if (Etatdroite == 0 && Etatgauche == 0) return 6;
+    Serial.print(" -> État global : ");
+    Serial.println(etat);
+
+    // ---- CONTRÔLE DES MOTEURS ----
+    float vitesseBase = 0.15;
+    float correctionLegere = 0.03;
+    float correctionForte = 0.10;  // Correction plus agressive pour cas extrêmes
+
+    // Démarrage ou rien détecté → avance droit
+    if (etat == -1 || etat == 0 || etat == 1) {
+        MOTOR_SetSpeed(0, vitesseBase);
+        MOTOR_SetSpeed(1, vitesseBase);
+    }
+    // --- CAS EXTRÊMES: Ligne très à gauche (seulement droite détecte) ---
+    else if (etat == 3) {
+        // Tourne fort à gauche pour rattraper
+        MOTOR_SetSpeed(0, vitesseBase - correctionForte);
+        MOTOR_SetSpeed(1, vitesseBase + correctionForte);
+    }
+    // --- CAS EXTRÊMES: Ligne très à droite (seulement gauche détecte) ---
+    else if (etat == 2) {
+        // Tourne fort à droite pour rattraper
+        MOTOR_SetSpeed(0, vitesseBase + correctionForte);
+        MOTOR_SetSpeed(1, vitesseBase - correctionForte);
+    }
+    // Légèrement à gauche (milieu + droite)
+    else if (etat == 5) {
+        MOTOR_SetSpeed(0, vitesseBase - correctionLegere);
+        MOTOR_SetSpeed(1, vitesseBase + correctionLegere);
+    }
+    // Légèrement à droite (milieu + gauche)
+    else if (etat == 4) {
+        MOTOR_SetSpeed(0, vitesseBase + correctionLegere);
+        MOTOR_SetSpeed(1, vitesseBase - correctionLegere);
+    }
+    // Tout noir ou tout blanc → avance lentement (stabilisation)
+    else if (etat == 6 || etat == 7) {
+        MOTOR_SetSpeed(0, 0.20);
+        MOTOR_SetSpeed(1, 0.20);
+    }
+}
+
+int lireEtatLigne() {
+    int g = analogRead(A2);
+    int m = analogRead(A3);
+    int d = analogRead(A4);
+
+    // seuils ajustables
+    int seuilG = 200;
+    int seuilM = 300;
+    int seuilD = 700;
+
+    bool EtatG = (g > seuilG);
+    bool EtatM = (m > seuilM);
+    bool EtatD = (d > seuilD);
+
+    int etat = -1;
+
+    if (EtatM == 0) {
+        if (EtatD == 1 && EtatG == 1) etat = 1;
+        if (EtatD == 0 && EtatG == 1) etat = 5;
+        if (EtatD == 1 && EtatG == 0) etat = 4;
+        if (EtatD == 0 && EtatG == 0) etat = 7;
+    } 
+    else if (EtatM == 1) {
+        if (EtatD == 1 && EtatG == 1) etat = 0;
+        if (EtatD == 0 && EtatG == 1) etat = 3;
+        if (EtatD == 1 && EtatG == 0) etat = 2;
+        if (EtatD == 0 && EtatG == 0) etat = 6;
     }
 
-    return -1; // aucun cas détecté
+    return etat;
 }
-
-bool CapteurInit() {
-  Serial.begin(9600);
-  Serial.println("Initialisation du capteur TCS34725...");
-  
-  pinMode(47, INPUT);
-  pinMode(48, INPUT);
-  pinMode(49, INPUT);
-
-  if (tcs.begin()) return true;
-    /*Serial.println("Capteur détecté !");*/
-    else return false;
-    /*Serial.println("Capteur non détecté. Vérifie le câblage SDA/SCL.");*/
-}
-/*
-void loop() {
-  uint16_t r, g, b, c;
-  tcs.getRawData(&r, &g, &b, &c);
-
-  String couleur = detectColor(r, g, b, c);
-
-  Serial.print("R: "); Serial.print(r);
-  Serial.print(" G: "); Serial.print(g);
-  Serial.print(" B: "); Serial.print(b);
-  Serial.print(" C: "); Serial.print(c);
-  Serial.print("  => Couleur détectée : ");
-  Serial.println(couleur);
-
-  Etat = suiveurligne();
-
-  delay(1000);
-}
-*/

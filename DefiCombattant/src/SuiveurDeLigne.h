@@ -6,5 +6,5 @@
 #include <Arduino.h>
 
 void Suislaligne(int Etat);
-
+void SuivreLigneContinu(void);
 #endif

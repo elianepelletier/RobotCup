@@ -10,5 +10,5 @@ void getrgb();
 int detectcouleur();
 bool CapteurInit();
 int detecteLigne();
-
+int lireEtatLigne();
 #endif

@@ -23,51 +23,35 @@ void setup() {
   //initialize board
   Serial.begin(9600);
   BoardInit();
-  CapteurInit();
-  
+  //CapteurInit();
+  /*if (CapteurInit()) {
+    Serial.println("Capteur détecté !");
+    while(1);
+  }
+  else Serial.println("Capteur non détecté. Vérifie le câblage SDA/SCL.");
+  */
 }
 
 void loop()
 {
 
   /*departMurJaune();
-  delay(5000);
+  delay(500);
   departDanseBleu();
-  delay(5000);
+  delay(500);
   departQuilleRose();
-  delay(5000);
+  delay(500);
   departRetrouverLigne();
-  delay(5000);*/
+  delay(500);*/
   //String couleur = detectColorHSV(true);
-  //Etat = detecteLigne();
-  //Suislaligne(Etat);
-  couleur = detectcouleur();
-  Serial.print(couleur);
-  switch (couleur)
-  {
-  case 0:
-  Serial.print("Start Rose");
-  //departMurJaune();
-  break;
-  case 1:
-  Serial.print("Start Vert");
-  //departRetrouverLigne();
-  break;
-  case 2:
-  Serial.print("Start Bleu");
-  //departDanseBleu();
-  break;
-  case 3:
-  Serial.print("Start Jaune");
-  //departQuilleRose();
-  break;
 
-  default:
-    break;
-  }
-  
-  delay(2000);
+  ///Etat = detecteLigne();
+  ///Suislaligne(Etat);
+ 
+  ///delay(1000);
 
+  SuivreLigneContinu();
+  delay(500);
   //departQuilleRose();
   //quille();
   //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)

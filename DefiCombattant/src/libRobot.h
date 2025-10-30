@@ -17,5 +17,5 @@ void arret();
 void avance(float distanceCm);            // avance en cm
 void tourne(int angleDeg, bool tourneGauche); // tourneGauche = true=gauche, false=droite
 void quille(void);
-
+void SuivreLigneContinu(void);
 #endif

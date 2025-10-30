@@ -2,7 +2,7 @@
 #include <LibRobus.h>
 #include <math.h>
 #include <stdio.h>
-
+#include <Capteur.h>
 float Q=0; // encodeur gauhce
 float K=0; // encodeur droit
 float H=0;
@@ -254,15 +254,15 @@ void  REACH_the_quille(void)
 
 
 // on fait spinner le robot (attack)
-void  Kill_the_quille(void )           
-{
-       
-   ENCODER_Reset(0);
-   ENCODER_Reset(1);
-   delay(50);
-   float reste_pour_X;
 
-    // On calcule la distance la plus courte vers l'axe X (0 ou 8124/2)
+  float reste_pour_X = 0;     
+   void Kill_the_quille(void)
+{
+    ENCODER_Reset(0);
+    ENCODER_Reset(1);
+    delay(50);
+
+    // On calcule la distance pour revenir sur l'axe X initial
     if (pulse_scan < PULSE_360 / 2.0)
     {
         reste_pour_X = (PULSE_360 / 2.0) - pulse_scan;
@@ -271,54 +271,46 @@ void  Kill_the_quille(void )
     {
         reste_pour_X = PULSE_360 - pulse_scan; // tourner dans l'autre sens
     }
-    while (((fabs(ENCODER_Read(0)) + fabs(ENCODER_Read(1)))/2) < reste_pour_X)
-    {
 
+    // Tourner vers la quille
+    while (((fabs(ENCODER_Read(0)) + fabs(ENCODER_Read(1))) / 2) < reste_pour_X)
+    {
         MOTOR_SetSpeed(1, V);
         MOTOR_SetSpeed(0, -V);
     }
 
-
     MOTOR_SetSpeed(1, 0);
     MOTOR_SetSpeed(0, 0);
-    TournerGauche90_PROVISOIRE();
 }
 
 
-void Leave_the_quille(void)   
-{
-    MOTOR_SetSpeed(0, V);
-    MOTOR_SetSpeed(1, V);
-    delay(2500);
-        while (((fabs(ENCODER_Read(0)) + fabs(ENCODER_Read(1))) / 2.0) < 3200) ///////modifier pour detecteur de ligne
-    {
-        MOTOR_SetSpeed(0, V);
-        MOTOR_SetSpeed(1, V);
-    }
 
+
+void Leave_the_quille(void)
+{
+    ENCODER_Reset(0);
+    ENCODER_Reset(1);
+
+    // On recule de la même distance (retour au point d’origine)
+    while (((fabs(ENCODER_Read(0)) + fabs(ENCODER_Read(1))) / 2) < reste_pour_X)
+    {
+        MOTOR_SetSpeed(0, -V);
+        MOTOR_SetSpeed(1, -V);
+    }
 
     MOTOR_SetSpeed(0, 0);
     MOTOR_SetSpeed(1, 0);
-    delay(250);
-
-    float angle_actuel = (Q + K) / 2.0; 
-    if (angle_actuel >= 0 && angle_actuel <= PULSE_180)  
-    {
-        TournerGauche90_PROVISOIRE(); 
-    }
-    
-    else
-    {
-        TournerDroite90_PROVISOIRE();
-    }
-
 }
 
 
 void BACK_ON_TRACK (void)   
 {
-
-    if (((K+Q)/2) < PULSE_180)  // gauche du cercle trigo -> virage vers la gauche pour continuer dans le bon sens
+    while(((Q+K)/2) < 6400)
+    {
+    MOTOR_SetSpeed(1, 0.20);
+    MOTOR_SetSpeed(0, 0.20);
+    }
+  /* if (((K+Q)/2) < PULSE_180)  // gauche du cercle trigo -> virage vers la gauche pour continuer dans le bon sens
 
         {
             TournerGauche90_PROVISOIRE(); 
@@ -329,6 +321,7 @@ void BACK_ON_TRACK (void)
         {
            TournerDroite90_PROVISOIRE();
         }
+           */
 }
 
 
