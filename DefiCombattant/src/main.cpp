@@ -12,7 +12,11 @@
 #define PIN_BLEUE 43
 int Etat;
 int bumperArr;
+int bumperG;
+int bumperD;
+int bumperF; 
 int couleur; //Rose = 0, Vert = 1, Bleu = 2, Jaune = 3
+bool vraiSiDemarre;
 
 void departDanseBleu();
 void departMurJaune();
@@ -34,30 +38,50 @@ void setup() {
 
 void loop()
 {
+  vraiSiDemarre = true;
 
-  /*departMurJaune();
-  delay(500);
-  departDanseBleu();
-  delay(500);
-  departQuilleRose();
-  delay(500);
-  departRetrouverLigne();
-  delay(500);*/
-  //String couleur = detectColorHSV(true);
+  bumperArr = ROBUS_IsBumper(3) * 1;
+  bumperF = ROBUS_IsBumper(2) * 2;
+  bumperG = ROBUS_IsBumper(0) * 3;
+  bumperD = ROBUS_IsBumper(1) * 4;
 
-  ///Etat = detecteLigne();
-  ///Suislaligne(Etat);
- 
-  ///delay(1000);
+  if (bumperArr || vraiSiDemarre)
+  {
+    vraiSiDemarre = true;
 
-  SuivreLigneContinu();
-  delay(500);
-  //departQuilleRose();
-  //quille();
-  //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
-  //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
-  
+    // --- Ajout demandé ---
+    SuivreLigneContinu();
+    delay(50);
+    // ---------------------
+
+    couleur = bumperArr + bumperF + bumperD + bumperG;
+
+    switch (couleur)
+    {
+      case 1: // rouge
+        departDanseBleu();
+        
+        break;
+
+      case 2: // vert
+        departMurJaune();
+        
+        break;
+
+      case 3: // bleu
+        departQuilleRose();
+        break;
+
+      case 4: // jaune
+        departRetrouverLigne();
+        break;
+
+      default:
+        break;
+    }
+  }
 }
+
 
 //fonction de départ lorsqu'il y a le carton bleu (petite danse)
 void departDanseBleu(){

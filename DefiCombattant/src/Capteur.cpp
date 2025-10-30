@@ -220,9 +220,9 @@ void SuivreLigneContinu()
     Serial.println(etat);
 
     // ---- CONTRÔLE DES MOTEURS ----
-    float vitesseBase = 0.15;
-    float correctionLegere = 0.03;
-    float correctionForte = 0.10;  // Correction plus agressive pour cas extrêmes
+    float vitesseBase = 0.07;
+    float correctionLegere = 0.08;
+    float correctionForte = 0.30;  // Correction plus agressive pour cas extrêmes
 
     // Démarrage ou rien détecté → avance droit
     if (etat == -1 || etat == 0 || etat == 1) {
@@ -253,8 +253,8 @@ void SuivreLigneContinu()
     }
     // Tout noir ou tout blanc → avance lentement (stabilisation)
     else if (etat == 6 || etat == 7) {
-        MOTOR_SetSpeed(0, 0.20);
-        MOTOR_SetSpeed(1, 0.20);
+        MOTOR_SetSpeed(0, 0.12);
+        MOTOR_SetSpeed(1, 0.12);
     }
 }
 
