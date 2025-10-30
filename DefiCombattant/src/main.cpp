@@ -80,7 +80,7 @@ void loop()
 
   //difference > 0.150 || 
   
-  if (difference > 1 || vraiSiDemarre){
+  if (difference > 1 || vraiSiDemarre || bumperArr){
     vraiSiDemarre = true;
 
 
