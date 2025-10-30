@@ -343,6 +343,6 @@ void readcapteurSLL(){
 
 void allumeDel(int pin){
   digitalWrite(pin, HIGH);
-  delay(2000);
+  delay(100);
   digitalWrite(pin, LOW);
 }
