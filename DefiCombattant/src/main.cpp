@@ -16,7 +16,11 @@ int bumperG;
 int bumperD;
 int bumperF; 
 int couleur; //Rose = 0, Vert = 1, Bleu = 2, Jaune = 3
-bool vraiSiDemarre;
+int valA0;
+int valA1;
+float volt0;
+float volt1;
+bool vraiSiDemarre = false;
 
 void departDanseBleu();
 void departMurJaune();
@@ -34,52 +38,74 @@ void setup() {
   }
   else Serial.println("Capteur non détecté. Vérifie le câblage SDA/SCL.");
   */
+
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  
 }
 
 void loop()
 {
-  vraiSiDemarre = true;
+  //departMurJaune();
+  //departDanseBleu();
+  //avance(0.5);
+  //delay(50);
+  //avance(1);
+  //delay(5000);
+  //quille();
+  //faire un while (autant et aussi longtemps que détecte pas de lumière, suive la ligne et avance)
+  //quand sort du while, check quelle couleur (ou absence/couleur plancher?) et appel bonne méthode
 
-  bumperArr = ROBUS_IsBumper(3) * 1;
-  bumperF = ROBUS_IsBumper(2) * 2;
-  bumperG = ROBUS_IsBumper(0) * 3;
-  bumperD = ROBUS_IsBumper(1) * 4;
 
-  if (bumperArr || vraiSiDemarre)
-  {
+  valA0 = analogRead(A0);
+  valA1 = analogRead(A1);
+  volt0 = valA0 * (5.000 / 1023.000);
+  volt1 = valA1 * (5.000 / 1023.000);
+  float difference = volt1 - volt0;
+
+  bumperArr = ROBUS_IsBumper(3);
+
+  Serial.println(difference > 0.150);
+  Serial.println(bumperArr);
+  Serial.println(vraiSiDemarre);
+  Serial.println("\n");
+
+  Serial.println(volt0);
+  Serial.println(volt1);
+  Serial.println(difference);
+
+  //difference > 0.150 || 
+  
+  if (difference > 1 || bumperArr || vraiSiDemarre){
     vraiSiDemarre = true;
 
-    // --- Ajout demandé ---
     SuivreLigneContinu();
-    delay(50);
-    // ---------------------
+   delay(50);
+   couleur = detectcouleur();
 
-    couleur = bumperArr + bumperF + bumperD + bumperG;
+   switch (couleur)
+     {
+     case 0: //rouge
+       departQuilleRose();
+     break;
+      
+     case 1: //vert
+       departRetrouverLigne();
+       break;
 
-    switch (couleur)
-    {
-      case 1: // rouge
-        departDanseBleu();
-        
-        break;
+     case 2: //bleu
+       departDanseBleu();
+       break;
+      
+   case 3: //jaune
+       departMurJaune();
+       break;
+      
+     default:
+       break;
+     }
 
-      case 2: // vert
-        departMurJaune();
-        
-        break;
-
-      case 3: // bleu
-        departQuilleRose();
-        break;
-
-      case 4: // jaune
-        departRetrouverLigne();
-        break;
-
-      default:
-        break;
-    }
-  }
+   } 
 }
 
 
