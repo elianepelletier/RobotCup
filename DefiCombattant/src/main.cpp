@@ -12,6 +12,7 @@
 #define PIN_BLEUE 43
 int Etat;
 int bumperArr;
+int couleur; //Rose = 0, Vert = 1, Bleu = 2, Jaune = 3
 
 void departDanseBleu();
 void departMurJaune();
@@ -29,18 +30,42 @@ void setup() {
 void loop()
 {
 
-  departMurJaune();
+  /*departMurJaune();
   delay(5000);
   departDanseBleu();
   delay(5000);
   departQuilleRose();
   delay(5000);
   departRetrouverLigne();
-  delay(5000);
+  delay(5000);*/
   //String couleur = detectColorHSV(true);
   //Etat = detecteLigne();
   //Suislaligne(Etat);
- 
+  couleur = detectcouleur();
+  Serial.print(couleur);
+  switch (couleur)
+  {
+  case 0:
+  Serial.print("Start Rose");
+  //departMurJaune();
+  break;
+  case 1:
+  Serial.print("Start Vert");
+  //departRetrouverLigne();
+  break;
+  case 2:
+  Serial.print("Start Bleu");
+  //departDanseBleu();
+  break;
+  case 3:
+  Serial.print("Start Jaune");
+  //departQuilleRose();
+  break;
+
+  default:
+    break;
+  }
+  
   delay(2000);
 
   //departQuilleRose();

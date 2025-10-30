@@ -6,7 +6,8 @@
 #include <Arduino.h>
 
 int suiveurligne();
-String detectColorHSV(bool afficher = false);
+void getrgb();
+int detectcouleur();
 bool CapteurInit();
 int detecteLigne();
 

@@ -10,8 +10,72 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725(
   TCS34725_GAIN_4X
 );
 
-// Conversion RGB to HSV
-void rgbToHsv(int r, int g, int b, float *h, float *s, float *v) {
+uint16_t r, g, b, c;
+
+/*void getrgb() {
+  tcs.getRawData(&r, &g, &b, &c);
+
+  Serial.print("R: ");
+  Serial.print(r);
+  Serial.print("  G: ");
+  Serial.print(g);
+  Serial.print("  B: ");
+  Serial.print(b);
+  Serial.print("  C: ");
+  Serial.println(c);
+}*/
+
+int detectcouleur() {
+  // Lire les données du capteur
+  tcs.getRawData(&r, &g, &b, &c);  // utilise les variables globales
+
+  // Affichage pour debug
+  /*Serial.print("  R: "); Serial.print(r);
+  Serial.print("  G: "); Serial.print(g);
+  Serial.print("  B: "); Serial.print(b);
+  Serial.print("  C: "); Serial.println(c);*/
+
+  // Normalisation
+  float somme = r + g + b;
+  if (somme == 0) return -1; // éviter division par zéro
+
+  float rn = (r / somme) * 255;
+  float gn = (g / somme) * 255;
+  float bn = (b / somme) * 255;
+
+  Serial.print("  Rn: "); Serial.print(rn);
+  Serial.print("  Gn: "); Serial.print(gn);
+  Serial.print("  Bn: "); Serial.println(bn);
+  
+  // Comparaisons
+  if (c > 500) {
+    if (rn > 89.5 && gn < 89 && bn < 77) {
+      Serial.println("Rouge");
+      return 0; // Rouge
+    } 
+    else if (gn > 100 && rn < 78 && bn < 77) {
+      Serial.println("Vert");
+      return 1; // Vert
+    } 
+    else if (bn > 78.5 && rn < 79.75 && gn < 97) {
+      Serial.println("Bleu");
+      return 2; // Bleu
+    } 
+    else if (rn > 80 && gn > 95 && bn < 76) {
+      Serial.println("Jaune");
+      return 3; // Jaune
+    }
+    Serial.println("inconnu");
+    return -1; // Inconnu
+  }
+  else {
+    Serial.println("pas assez de lumiere");
+    return -1; // Inconnu
+  }
+  return-1; // Inconnu
+}
+
+/*void rgbToHsv(int r, int g, int b, float *h, float *s, float *v) {
     float rf = r / 255.0;
     float gf = g / 255.0;
     float bf = b / 255.0;
@@ -110,7 +174,7 @@ String detectColorHSV(bool afficher) {
     Serial.println("%");
 
     return "";
-}
+}*/
 
 //etat du capteur de suiveur de ligne
 int detecteLigne() {
